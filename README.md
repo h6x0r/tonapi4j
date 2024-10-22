@@ -21,7 +21,7 @@ For creating wallets, transferring TON, Jetton, NFTs, and other operations, reco
 <dependency>
     <groupId>io.github.h6x0r</groupId>
     <artifactId>tonapi4j</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 </dependency>
 ```
 

@@ -215,7 +215,7 @@ public class LiteserverMethod extends TonapiClientBase {
             int count,
             String accountId,
             Long lt) throws TONAPIError {
-        String method = String.format("v2/liteserver/get_block_transactions/%s", blockId);
+        String method = String.format("v2/liteserver/list_block_transactions/%s", blockId);
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
         params.put("count", count);

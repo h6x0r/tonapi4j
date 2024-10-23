@@ -138,7 +138,7 @@ public class NftMethod extends TonapiClientBase {
      * @param accountId      Account ID
      * @param limit          Number of records to return. Default is 100.
      * @param beforeLt       Optional parameter to get events before the specified logical time (lt)
-     * @param acceptLanguage Accept-Language header value. Default is "en".
+     * @param acceptLanguage Accept-Language header value. Default is "en". Example -> ru-RU,ru;q=0.5
      * @param startDate      Optional start date (timestamp)
      * @param endDate        Optional end date (timestamp)
      * @return AccountEvents object containing the account events

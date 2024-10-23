@@ -43,7 +43,7 @@ public class InscriptionsMethod extends AsyncTonapiClientBase {
      * @param accountId      Account address
      * @param beforeLt       Optional parameter to get events before the specified logical time (lt)
      * @param limit          Number of records to return. Default is 100.
-     * @param acceptLanguage Accept-Language header value. Default is "en".
+     * @param acceptLanguage Accept-Language header value. Default is "en". Example -> ru-RU,ru;q=0.5
      * @return CompletableFuture of AccountEvents object containing the account events
      * @throws TONAPIError if the request fails
      */
@@ -71,7 +71,7 @@ public class InscriptionsMethod extends AsyncTonapiClientBase {
      * @param ticker         Token ticker
      * @param beforeLt       Optional parameter to get events before the specified logical time (lt)
      * @param limit          Number of records to return. Default is 100.
-     * @param acceptLanguage Accept-Language header value. Default is "en".
+     * @param acceptLanguage Accept-Language header value. Default is "en". Example -> ru-RU,ru;q=0.5
      * @return CompletableFuture of AccountEvents object containing the account events
      * @throws TONAPIError if the request fails
      */

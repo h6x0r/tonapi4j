@@ -34,7 +34,7 @@ public class StakingMethod extends TonapiClientBase {
      * Staking pool info.
      *
      * @param accountId      Account ID
-     * @param acceptLanguage Accept-Language header value. Default is "en".
+     * @param acceptLanguage Accept-Language header value. Default is "en". Example -> ru-RU,ru;q=0.5
      * @return StakingPoolInfo object containing the pool info
      * @throws TONAPIError if the request fails
      */
@@ -64,7 +64,7 @@ public class StakingMethod extends TonapiClientBase {
      *
      * @param availableFor      Account ID
      * @param includeUnverified Return also pools not from white list - just compatible by interfaces
-     * @param acceptLanguage    Accept-Language header value. Default is "en".
+     * @param acceptLanguage    Accept-Language header value. Default is "en". Example -> ru-RU,ru;q=0.5
      * @return StakingPools object containing all network pools
      * @throws TONAPIError if the request fails
      */

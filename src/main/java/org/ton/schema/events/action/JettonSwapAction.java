@@ -7,14 +7,16 @@ import lombok.NoArgsConstructor;
 import org.ton.schema.accounts.AccountAddress;
 import org.ton.schema.jettons.JettonPreview;
 
+import java.math.BigInteger;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class JettonSwapAction {
     private String dex;
-    private String amountIn;
-    private String amountOut;
+    private BigInteger amountIn;
+    private BigInteger amountOut;
     private Integer tonIn;
     private Integer tonOut;
     private AccountAddress userWallet;

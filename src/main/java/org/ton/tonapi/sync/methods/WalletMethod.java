@@ -77,7 +77,7 @@ public class WalletMethod extends TonapiClientBase {
      * Emulate sending message to blockchain.
      *
      * @param body           Data that is expected
-     * @param acceptLanguage Accept-Language header value. Default is "en".
+     * @param acceptLanguage Accept-Language header value. Default is "en". Example -> ru-RU,ru;q=0.5
      * @return MessageConsequences object containing the consequences
      * @throws TONAPIError if the request fails
      */

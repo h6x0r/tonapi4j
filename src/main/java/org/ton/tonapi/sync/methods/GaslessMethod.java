@@ -1,12 +1,16 @@
 package org.ton.tonapi.sync.methods;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import org.glassfish.grizzly.utils.Pair;
 import org.ton.exception.TONAPIError;
 import org.ton.schema.gasless.GaslessConfig;
 import org.ton.schema.gasless.SignRawParams;
 import org.ton.tonapi.sync.TonapiClientBase;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class GaslessMethod extends TonapiClientBase {
 
@@ -30,21 +34,24 @@ public class GaslessMethod extends TonapiClientBase {
      * Returns estimated gas price.
      *
      * @param masterId Jetton Master ID.
-     * @param body     The body should contain a JSON object with the following structure:
-     *                 {
-     *                 "wallet_address": "string",
-     *                 "wallet_public_key": "string",
-     *                 "messages": [
-     *                 {
-     *                 "boc": "string"
-     *                 }
-     *                 ]
-     *                 }
+     * @param walletAddress Wallet address the tx is going to be made from
+     * @param walletPublicKey The public key of the wallet
+     * @param messageList List of messages in a form of BOC
      * @return SignRawParams object containing the estimated gas price
      * @throws TONAPIError if the request fails
      */
-    public SignRawParams estimateGasPrice(String masterId, Map<String, Object> body) throws TONAPIError {
+    public SignRawParams estimateGasPrice(String masterId, String walletAddress, String walletPublicKey, List<String> messageList) throws TONAPIError {
         String method = String.format("v2/gasless/estimate/%s", masterId);
+
+        List<Pair<String, String>> messages = messageList.stream()
+                .map(msg -> new Pair<>("boc", msg))
+                .collect(Collectors.toList());
+
+        Map<String, Object> body = new HashMap<>();
+        body.put("wallet_address", walletAddress);
+        body.put("wallet_public_key", walletPublicKey);
+        body.put("messages", messages);
+
         return this.post(method, null, body, null, new TypeReference<>() {
         });
     }
@@ -52,16 +59,18 @@ public class GaslessMethod extends TonapiClientBase {
     /**
      * Send message to the blockchain.
      *
-     * @param body The body should contain a JSON object with the following structure:
-     *             {
-     *             "wallet_public_key": "string",  // The public key of the wallet.
-     *             "boc": "string"  // A single BOC or a batch of BOCs serialized in base64.
-     *             }
+     * @param walletPublicKey The public key of the wallet.
+     * @param boc A single BOC or a batch of BOCs serialized in base64.
      * @return true if the message was sent successfully
      * @throws TONAPIError if the request fails
      */
-    public boolean send(Map<String, Object> body) throws TONAPIError {
+    public boolean send(String walletPublicKey, String boc) throws TONAPIError {
         String method = "v2/gasless/send";
+
+        Map<String, String> body = new HashMap<>();
+        body.put("wallet_public_key", walletPublicKey);
+        body.put("boc", boc);
+
         this.post(method, null, body, null, new TypeReference<>() {
         });
         return true;

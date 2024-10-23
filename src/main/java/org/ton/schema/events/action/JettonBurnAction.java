@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import org.ton.schema.accounts.AccountAddress;
 import org.ton.schema.jettons.JettonPreview;
 
+import java.math.BigInteger;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -14,6 +16,6 @@ import org.ton.schema.jettons.JettonPreview;
 public class JettonBurnAction {
     private AccountAddress sender;
     private String sendersWallet;
-    private String amount;
+    private BigInteger amount;
     private JettonPreview jetton;
 }

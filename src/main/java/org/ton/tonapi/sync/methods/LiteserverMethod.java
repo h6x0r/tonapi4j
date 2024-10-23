@@ -115,12 +115,16 @@ public class LiteserverMethod extends TonapiClientBase {
     /**
      * Send raw message to blockchain.
      *
-     * @param body Data expected by the API
+     * @param bodyMsg the base64 serialized bag-of-cells Example -> te6ccgECBQEAARUAAkWIAWTtae+KgtbrX26Bep8JSq8lFLfGOoyGR/xwdjfvpvEaHg
      * @return Code as Integer, or null if not available
      * @throws TONAPIError if the request fails
      */
-    public Integer sendMessage(Map<String, Object> body) throws TONAPIError {
+    public Integer sendMessage(String bodyMsg) throws TONAPIError {
         String method = "v2/liteserver/send_message";
+
+        Map<String, String> body = new HashMap<>();
+        body.put("body", bodyMsg);
+
         Map<String, Object> response = this.post(method, null, body, null, new TypeReference<>() {
         });
         Object code = response.get("code");

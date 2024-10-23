@@ -26,12 +26,12 @@ public class JettonsMethod extends AsyncTonapiClientBase {
     /**
      * Get jetton metadata by jetton master address.
      *
-     * @param accountId Account ID (jetton master address)
+     * @param jettonId jetton master address
      * @return CompletableFuture of JettonInfo object containing jetton metadata
      * @throws TONAPIError if the request fails
      */
-    public CompletableFuture<JettonInfo> getInfo(String accountId) throws TONAPIError {
-        String method = String.format("v2/jettons/%s", accountId);
+    public CompletableFuture<JettonInfo> getInfo(String jettonId) throws TONAPIError {
+        String method = String.format("v2/jettons/%s", jettonId);
         return this.get(method, null, null, new TypeReference<>() {
         });
     }
@@ -39,14 +39,14 @@ public class JettonsMethod extends AsyncTonapiClientBase {
     /**
      * Get jetton's holders.
      *
-     * @param accountId Account ID (jetton master address)
+     * @param jettonId jetton master address
      * @param limit     Number of records to return. Default is 1000.
      * @param offset    Offset for pagination. Default is 0.
      * @return CompletableFuture of JettonHolders object containing jetton holders
      * @throws TONAPIError if the request fails
      */
-    public CompletableFuture<JettonHolders> getHolders(String accountId, int limit, int offset) throws TONAPIError {
-        String method = String.format("v2/jettons/%s/holders", accountId);
+    public CompletableFuture<JettonHolders> getHolders(String jettonId, int limit, int offset) throws TONAPIError {
+        String method = String.format("v2/jettons/%s/holders", jettonId);
         Map<String, Object> params = new HashMap<>();
         params.put("limit", limit);
         params.put("offset", offset);
@@ -57,17 +57,17 @@ public class JettonsMethod extends AsyncTonapiClientBase {
     /**
      * Get all jetton's holders.
      *
-     * @param accountId Account ID (jetton master address)
+     * @param jettonId jetton master address
      * @return CompletableFuture of JettonHolders object containing all jetton holders
      * @throws TONAPIError if the request fails
      */
-    public CompletableFuture<JettonHolders> getAllHolders(String accountId) throws TONAPIError {
+    public CompletableFuture<JettonHolders> getAllHolders(String jettonId) throws TONAPIError {
         List<JettonHolder> jettonHolders = new ArrayList<>();
         int limit = 1000;
         AtomicInteger offset = new AtomicInteger(0);
         CompletableFuture<JettonHolders> future = new CompletableFuture<>();
 
-        fetchHolders(accountId, limit, offset, jettonHolders, future);
+        fetchHolders(jettonId, limit, offset, jettonHolders, future);
 
         return future;
     }
@@ -126,7 +126,7 @@ public class JettonsMethod extends AsyncTonapiClientBase {
     /**
      * Get jetton's custom payload and state init required for transfer.
      *
-     * @param jettonId  Jetton ID (jetton master address)
+     * @param jettonId jetton master address
      * @param accountId Account ID (owner's address)
      * @return CompletableFuture of JettonTransferPayload object containing payload and state init
      * @throws TONAPIError if the request fails

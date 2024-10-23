@@ -80,7 +80,7 @@ public class WalletMethod extends AsyncTonapiClientBase {
      * Emulate sending message to blockchain.
      *
      * @param body           Data that is expected
-     * @param acceptLanguage Accept-Language header value. Default is "en".
+     * @param acceptLanguage Accept-Language header value. Default is "en". Example -> ru-RU,ru;q=0.5
      * @return CompletableFuture of MessageConsequences object containing the consequences
      * @throws TONAPIError if the request fails
      */

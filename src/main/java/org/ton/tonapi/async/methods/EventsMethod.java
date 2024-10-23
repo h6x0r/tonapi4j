@@ -20,7 +20,7 @@ public class EventsMethod extends AsyncTonapiClientBase {
      * Get an event either by event ID or a hash of any transaction in a trace.
      *
      * @param eventId        Event ID
-     * @param acceptLanguage Accept-Language header value, default is "en"
+     * @param acceptLanguage Accept-Language header value. Default is "en". Example -> ru-RU,ru;q=0.5
      * @return CompletableFuture of Event object containing the event data
      * @throws TONAPIError if the request fails
      */
@@ -46,17 +46,21 @@ public class EventsMethod extends AsyncTonapiClientBase {
     /**
      * Emulate sending a message to the blockchain.
      *
-     * @param body                 Map containing the 'boc' serialized to base64.
-     * @param acceptLanguage       Accept-Language header value, default is "en"
+     * @param boc the base64 serialized bag-of-cells Example -> te6ccgECBQEAARUAAkWIAWTtae+KgtbrX26Bep8JSq8lFLfGOoyGR/xwdjfvpvEaHg
+     * @param acceptLanguage       Accept-Language header value. Default is "en". Example -> ru-RU,ru;q=0.5
      * @param ignoreSignatureCheck Optional parameter to ignore signature check
      * @return CompletableFuture of Event object containing the emulated event
      * @throws TONAPIError if the request fails
      */
     public CompletableFuture<Event> emulate(
-            Map<String, Object> body,
+            String boc,
             String acceptLanguage,
             Boolean ignoreSignatureCheck) throws TONAPIError {
         String method = "v2/events/emulate";
+
+        Map<String, String> body = new HashMap<>();
+        body.put("boc", boc);
+
         Map<String, Object> params = new HashMap<>();
         if (ignoreSignatureCheck != null && ignoreSignatureCheck) {
             params.put("ignore_signature_check", ignoreSignatureCheck);

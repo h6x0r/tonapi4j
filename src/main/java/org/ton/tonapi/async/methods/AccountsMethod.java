@@ -36,7 +36,7 @@ public class AccountsMethod extends AsyncTonapiClientBase {
     /**
      * Get information about multiple accounts without low-level details.
      *
-     * @param accountIds List of account IDs
+     * @param accountIds List of wallet addresses
      * @return CompletableFuture of Accounts object containing the list of accounts
      * @throws TONAPIError if the request fails
      */
@@ -104,7 +104,7 @@ public class AccountsMethod extends AsyncTonapiClientBase {
      * Get Jetton balance by the owner's address.
      *
      * @param accountId           Account ID
-     * @param jettonId            Jetton ID
+     * @param jettonId jetton master address
      * @param currencies          Optional list of currencies
      * @param supportedExtensions Optional list of supported extensions
      * @return CompletableFuture of JettonBalance object containing the Jetton balance
@@ -133,7 +133,7 @@ public class AccountsMethod extends AsyncTonapiClientBase {
      * @param accountId      Account ID
      * @param limit          Number of records to return
      * @param beforeLt       Optional parameter to get events before the specified logical time (lt)
-     * @param acceptLanguage Value of the Accept-Language header
+     * @param acceptLanguage    Accept-Language header value. Default is "en". Example -> ru-RU,ru;q=0.5
      * @param startDate      Optional start date (timestamp)
      * @param endDate        Optional end date (timestamp)
      * @return CompletableFuture of AccountEvents object containing the event history
@@ -168,10 +168,10 @@ public class AccountsMethod extends AsyncTonapiClientBase {
      * Get the Jetton transfer history for an account and a specific Jetton.
      *
      * @param accountId      Account ID
-     * @param jettonId       Jetton ID
+     * @param jettonId jetton master address
      * @param limit          Number of records to return
      * @param beforeLt       Optional parameter to get events before the specified logical time (lt)
-     * @param acceptLanguage Value of the Accept-Language header
+     * @param acceptLanguage    Accept-Language header value. Default is "en". Example -> ru-RU,ru;q=0.5
      * @param startDate      Optional start date (timestamp)
      * @param endDate        Optional end date (timestamp)
      * @return CompletableFuture of AccountEvents object containing the event history
@@ -280,7 +280,7 @@ public class AccountsMethod extends AsyncTonapiClientBase {
      * @param accountId      Account ID
      * @param limit          Number of records to return
      * @param beforeLt       Optional parameter to get events before the specified logical time (lt)
-     * @param acceptLanguage Value of the Accept-Language header
+     * @param acceptLanguage    Accept-Language header value. Default is "en". Example -> ru-RU,ru;q=0.5
      * @param initiator      Show only events initiated by this account
      * @param subjectOnly    Filter actions where the account is not the real subject
      * @param startDate      Optional start date (timestamp)
@@ -322,7 +322,7 @@ public class AccountsMethod extends AsyncTonapiClientBase {
      *
      * @param accountId      Account ID
      * @param eventId        Event ID
-     * @param acceptLanguage Value of the Accept-Language header
+     * @param acceptLanguage    Accept-Language header value. Default is "en". Example -> ru-RU,ru;q=0.5
      * @param subjectOnly    Filter actions where the account is not the real subject
      * @return CompletableFuture of AccountEvent object containing the event details
      * @throws TONAPIError if the request fails
@@ -365,7 +365,7 @@ public class AccountsMethod extends AsyncTonapiClientBase {
      * @param accountId      Account ID
      * @param limit          Number of records to return
      * @param beforeLt       Optional parameter to get events before the specified logical time (lt)
-     * @param acceptLanguage Value of the Accept-Language header
+     * @param acceptLanguage    Accept-Language header value. Default is "en". Example -> ru-RU,ru;q=0.5
      * @param startDate      Optional start date (timestamp)
      * @param endDate        Optional end date (timestamp)
      * @return CompletableFuture of AccountEvents object containing the NFT event history
@@ -507,7 +507,7 @@ public class AccountsMethod extends AsyncTonapiClientBase {
      *
      * @param accountId            Account ID
      * @param body                 Request body containing 'boc'
-     * @param acceptLanguage       Value of the Accept-Language header
+     * @param acceptLanguage    Accept-Language header value. Default is "en". Example -> ru-RU,ru;q=0.5
      * @param ignoreSignatureCheck Ignore signature check if true
      * @return CompletableFuture of AccountEvent object containing the emulated event
      * @throws TONAPIError if the request fails

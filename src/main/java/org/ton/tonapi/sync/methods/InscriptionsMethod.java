@@ -39,7 +39,7 @@ public class InscriptionsMethod extends TonapiClientBase {
     /**
      * Get the transfer inscriptions history for an account. It's an experimental API and can be dropped in the future.
      *
-     * @param accountId Wallet address
+     * @param accountId      Wallet address
      * @param beforeLt       Optional parameter to get events before the specified logical time (lt)
      * @param limit          Number of records to return. Default is 100.
      * @param acceptLanguage Accept-Language header value. Default is "en". Example -> ru-RU,ru;q=0.5
@@ -67,7 +67,7 @@ public class InscriptionsMethod extends TonapiClientBase {
      * Get the transfer inscriptions history for an account filtered by ticker.
      * It's an experimental API and can be dropped in the future.
      *
-     * @param accountId Wallet address
+     * @param accountId      Wallet address
      * @param ticker         Token ticker
      * @param beforeLt       Optional parameter to get events before the specified logical time (lt)
      * @param limit          Number of records to return. Default is 100.

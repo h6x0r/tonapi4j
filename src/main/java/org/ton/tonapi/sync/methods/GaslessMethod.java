@@ -33,10 +33,10 @@ public class GaslessMethod extends TonapiClientBase {
     /**
      * Returns estimated gas price.
      *
-     * @param masterId Jetton Master ID.
-     * @param walletAddress Wallet address the tx is going to be made from
+     * @param masterId        Jetton Master ID.
+     * @param walletAddress   Wallet address the tx is going to be made from
      * @param walletPublicKey The public key of the wallet
-     * @param messageList List of messages in a form of BOC
+     * @param messageList     List of messages in a form of BOC
      * @return SignRawParams object containing the estimated gas price
      * @throws TONAPIError if the request fails
      */
@@ -60,7 +60,7 @@ public class GaslessMethod extends TonapiClientBase {
      * Send message to the blockchain.
      *
      * @param walletPublicKey The public key of the wallet.
-     * @param boc A single BOC or a batch of BOCs serialized in base64.
+     * @param boc             A single BOC or a batch of BOCs serialized in base64.
      * @return true if the message was sent successfully
      * @throws TONAPIError if the request fails
      */

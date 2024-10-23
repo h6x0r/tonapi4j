@@ -39,8 +39,8 @@ public class EmulateMethod extends AsyncTonapiClientBase {
     /**
      * Emulate sending a message to the blockchain and get the event.
      *
-     * @param boc the base64 serialized bag-of-cells Example -> te6ccgECBQEAARUAAkWIAWTtae+KgtbrX26Bep8JSq8lFLfGOoyGR/xwdjfvpvEaHg
-     * @param acceptLanguage    Accept-Language header value. Default is "en". Example -> ru-RU,ru;q=0.5
+     * @param boc                  the base64 serialized bag-of-cells Example -> te6ccgECBQEAARUAAkWIAWTtae+KgtbrX26Bep8JSq8lFLfGOoyGR/xwdjfvpvEaHg
+     * @param acceptLanguage       Accept-Language header value. Default is "en". Example -> ru-RU,ru;q=0.5
      * @param ignoreSignatureCheck Optional parameter to ignore signature check.
      * @return CompletableFuture of Event object containing the emulated event.
      * @throws TONAPIError if the request fails
@@ -67,7 +67,7 @@ public class EmulateMethod extends AsyncTonapiClientBase {
     /**
      * Emulate sending a message to the blockchain and get the trace.
      *
-     * @param boc the base64 serialized bag-of-cells Example -> te6ccgECBQEAARUAAkWIAWTtae+KgtbrX26Bep8JSq8lFLfGOoyGR/xwdjfvpvEaHg
+     * @param boc                  the base64 serialized bag-of-cells Example -> te6ccgECBQEAARUAAkWIAWTtae+KgtbrX26Bep8JSq8lFLfGOoyGR/xwdjfvpvEaHg
      * @param ignoreSignatureCheck Optional parameter to ignore signature check.
      * @return CompletableFuture of Trace object containing the emulated trace.
      * @throws TONAPIError if the request fails
@@ -91,8 +91,8 @@ public class EmulateMethod extends AsyncTonapiClientBase {
     /**
      * Emulate sending a message to the blockchain as a wallet.
      *
-     * @param boc the base64 serialized bag-of-cells Example -> te6ccgECBQEAARUAAkWIAWTtae+KgtbrX26Bep8JSq8lFLfGOoyGR/xwdjfvpvEaHg
-     * @param acceptLanguage    Accept-Language header value. Default is "en". Example -> ru-RU,ru;q=0.5
+     * @param boc            the base64 serialized bag-of-cells Example -> te6ccgECBQEAARUAAkWIAWTtae+KgtbrX26Bep8JSq8lFLfGOoyGR/xwdjfvpvEaHg
+     * @param acceptLanguage Accept-Language header value. Default is "en". Example -> ru-RU,ru;q=0.5
      * @return CompletableFuture of MessageConsequences object containing the consequences of the message.
      * @throws TONAPIError if the request fails
      */
@@ -114,8 +114,8 @@ public class EmulateMethod extends AsyncTonapiClientBase {
      * Emulate sending a message to the blockchain for a specific account and get the account event.
      *
      * @param accountId      Account ID
-     * @param boc the base64 serialized bag-of-cells Example -> te6ccgECBQEAARUAAkWIAWTtae+KgtbrX26Bep8JSq8lFLfGOoyGR/xwdjfvpvEaHg
-     * @param acceptLanguage    Accept-Language header value. Default is "en". Example -> ru-RU,ru;q=0.5
+     * @param boc            the base64 serialized bag-of-cells Example -> te6ccgECBQEAARUAAkWIAWTtae+KgtbrX26Bep8JSq8lFLfGOoyGR/xwdjfvpvEaHg
+     * @param acceptLanguage Accept-Language header value. Default is "en". Example -> ru-RU,ru;q=0.5
      * @return CompletableFuture of AccountEvent object containing the emulated account event.
      * @throws TONAPIError if the request fails
      */

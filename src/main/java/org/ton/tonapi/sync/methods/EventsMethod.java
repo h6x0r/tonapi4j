@@ -51,7 +51,7 @@ public class EventsMethod extends TonapiClientBase {
     /**
      * Emulate sending a message to the blockchain.
      *
-     * @param boc the base64 serialized bag-of-cells Example -> te6ccgECBQEAARUAAkWIAWTtae+KgtbrX26Bep8JSq8lFLfGOoyGR/xwdjfvpvEaHg
+     * @param boc                  the base64 serialized bag-of-cells Example -> te6ccgECBQEAARUAAkWIAWTtae+KgtbrX26Bep8JSq8lFLfGOoyGR/xwdjfvpvEaHg
      * @param acceptLanguage       Accept-Language header value. Default is "en". Example -> ru-RU,ru;q=0.5
      * @param ignoreSignatureCheck Optional parameter to ignore signature check
      * @return Event object containing the emulated event

@@ -40,8 +40,8 @@ public class JettonsMethod extends AsyncTonapiClientBase {
      * Get jetton's holders.
      *
      * @param jettonId jetton master address
-     * @param limit     Number of records to return. Default is 1000.
-     * @param offset    Offset for pagination. Default is 0.
+     * @param limit    Number of records to return. Default is 1000.
+     * @param offset   Offset for pagination. Default is 0.
      * @return CompletableFuture of JettonHolders object containing jetton holders
      * @throws TONAPIError if the request fails
      */
@@ -126,7 +126,7 @@ public class JettonsMethod extends AsyncTonapiClientBase {
     /**
      * Get jetton's custom payload and state init required for transfer.
      *
-     * @param jettonId jetton master address
+     * @param jettonId  jetton master address
      * @param accountId Account ID (owner's address)
      * @return CompletableFuture of JettonTransferPayload object containing payload and state init
      * @throws TONAPIError if the request fails

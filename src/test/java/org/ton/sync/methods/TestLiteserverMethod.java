@@ -83,10 +83,7 @@ public class TestLiteserverMethod extends TonapiTestBase {
     @Test
     @Disabled
     public void testSendMessage() {
-        Map<String, Object> body = new HashMap<>();
-        body.put("body", MESSAGE_ID);
-
-        Integer response = tonapi.getLiteserver().sendMessage(body);
+        Integer response = tonapi.getLiteserver().sendMessage(MESSAGE_ID);
         assertNotNull(response);
     }
 

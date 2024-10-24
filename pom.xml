@@ -49,17 +49,10 @@
         <connection>scm:git:git://github.com/h6x0r/tonapi4j.git</connection>
         <developerConnection>scm:git:git@github.com:h6x0r/tonapi4j.git</developerConnection>
         <url>https://github.com/h6x0r/tonapi4j/tree/master</url>
-        <tag>tonapi4j-1.0.2</tag>
+        <tag>tonapi4j-1.0.3</tag>
     </scm>
 
     <dependencies>
-
-        <!-- Apache HttpClient -->
-        <!--        <dependency>-->
-        <!--            <groupId>org.apache.httpcomponents</groupId>-->
-        <!--            <artifactId>httpclient</artifactId>-->
-        <!--            <version>${apache.http.client}</version>-->
-        <!--        </dependency>-->
 
         <dependency>
             <groupId>org.projectlombok</groupId>

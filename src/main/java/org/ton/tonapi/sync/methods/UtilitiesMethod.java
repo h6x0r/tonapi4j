@@ -21,7 +21,7 @@ public class UtilitiesMethod extends TonapiClientBase {
      */
     public AddressForm parseAddress(String accountId) throws TONAPIError {
         String method = String.format("v2/address/%s/parse", accountId);
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<AddressForm>() {
         });
     }
 
@@ -33,7 +33,7 @@ public class UtilitiesMethod extends TonapiClientBase {
      */
     public ServiceStatus status() throws TONAPIError {
         String method = "v2/status";
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<ServiceStatus>() {
         });
     }
 }

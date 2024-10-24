@@ -30,7 +30,7 @@ public class JettonsMethod extends TonapiClientBase {
      */
     public JettonInfo getInfo(String accountId) throws TONAPIError {
         String method = String.format("v2/jettons/%s", accountId);
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<JettonInfo>() {
         });
     }
 
@@ -48,7 +48,7 @@ public class JettonsMethod extends TonapiClientBase {
         Map<String, Object> params = new HashMap<>();
         params.put("limit", limit);
         params.put("offset", offset);
-        return this.get(method, params, null, new TypeReference<>() {
+        return this.get(method, params, null, new TypeReference<JettonHolders>() {
         });
     }
 
@@ -90,7 +90,7 @@ public class JettonsMethod extends TonapiClientBase {
         Map<String, Object> params = new HashMap<>();
         params.put("limit", limit);
         params.put("offset", offset);
-        return this.get(method, params, null, new TypeReference<>() {
+        return this.get(method, params, null, new TypeReference<Jettons>() {
         });
     }
 
@@ -103,7 +103,7 @@ public class JettonsMethod extends TonapiClientBase {
      */
     public Event getJettonTransferEvent(String eventId) throws TONAPIError {
         String method = String.format("v2/events/%s/jettons", eventId);
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<Event>() {
         });
     }
 
@@ -117,7 +117,7 @@ public class JettonsMethod extends TonapiClientBase {
      */
     public JettonTransferPayload getJettonTransferPayload(String jettonId, String accountId) throws TONAPIError {
         String method = String.format("v2/jettons/%s/transfer/%s/payload", jettonId, accountId);
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<JettonTransferPayload>() {
         });
     }
 }

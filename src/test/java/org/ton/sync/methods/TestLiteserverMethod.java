@@ -18,9 +18,6 @@ import org.ton.schema.liteserver.RawShardsInfo;
 import org.ton.schema.liteserver.RawTransactions;
 import org.ton.sync.TonapiTestBase;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.ton.utils.Constants.ACCOUNT_ID;
 import static org.ton.utils.Constants.BEFORE_LT;

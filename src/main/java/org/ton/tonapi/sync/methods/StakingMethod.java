@@ -26,7 +26,7 @@ public class StakingMethod extends TonapiClientBase {
      */
     public AccountStaking getParticipatingPools(String accountId) throws TONAPIError {
         String method = String.format("v2/staking/nominator/%s/pools", accountId);
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<AccountStaking>() {
         });
     }
 
@@ -42,7 +42,7 @@ public class StakingMethod extends TonapiClientBase {
         String method = String.format("v2/staking/pool/%s", accountId);
         Map<String, String> headers = new HashMap<>();
         headers.put("Accept-Language", acceptLanguage != null ? acceptLanguage : "en");
-        return this.get(method, null, headers, new TypeReference<>() {
+        return this.get(method, null, headers, new TypeReference<StakingPoolInfo>() {
         });
     }
 
@@ -55,7 +55,7 @@ public class StakingMethod extends TonapiClientBase {
      */
     public StakingPoolHistory getPoolHistory(String accountId) throws TONAPIError {
         String method = String.format("v2/staking/pool/%s/history", accountId);
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<StakingPoolHistory>() {
         });
     }
 
@@ -75,7 +75,7 @@ public class StakingMethod extends TonapiClientBase {
         params.put("include_unverified", includeUnverified);
         Map<String, String> headers = new HashMap<>();
         headers.put("Accept-Language", acceptLanguage != null ? acceptLanguage : "en");
-        return this.get(method, params, headers, new TypeReference<>() {
+        return this.get(method, params, headers, new TypeReference<StakingPools>() {
         });
     }
 }

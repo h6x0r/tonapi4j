@@ -18,8 +18,6 @@ import org.ton.schema.liteserver.RawShardProof;
 import org.ton.schema.liteserver.RawShardsInfo;
 import org.ton.schema.liteserver.RawTransactions;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -89,10 +87,7 @@ public class TestLiteserverMethod extends AsyncTonapiTestBase {
     @Test
     @Disabled
     public void testSendMessage() throws Exception {
-        Map<String, Object> body = new HashMap<>();
-        body.put("body", MESSAGE_ID);
-
-        CompletableFuture<Integer> future = tonapi.getLiteserver().sendMessage(body);
+        CompletableFuture<Integer> future = tonapi.getLiteserver().sendMessage(MESSAGE_ID);
         Integer response = future.get();
         assertNotNull(response);
     }

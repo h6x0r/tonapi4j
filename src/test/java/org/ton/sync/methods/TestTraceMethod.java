@@ -5,9 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.ton.schema.traces.Trace;
 import org.ton.sync.TonapiTestBase;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class TestTraceMethod extends TonapiTestBase {
@@ -29,10 +26,7 @@ public class TestTraceMethod extends TonapiTestBase {
     @Test
     @Disabled
     public void testEmulate() {
-        Map<String, Object> body = new HashMap<>();
-        body.put("boc", BOC);
-
-        Trace response = tonapi.getTraces().emulate(body, null);
+        Trace response = tonapi.getTraces().emulate(BOC, null);
         assertNotNull(response);
     }
 }

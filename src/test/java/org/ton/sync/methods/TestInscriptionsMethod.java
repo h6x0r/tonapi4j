@@ -4,10 +4,9 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.ton.schema.events.AccountEvents;
 import org.ton.schema.inscriptions.InscriptionBalances;
+import org.ton.schema.inscriptions.InscriptionCommentResponse;
 import org.ton.sync.TonapiTestBase;
 import org.ton.util.Utils;
-
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.ton.utils.Constants.ACCEPT_LANGUAGE_EN;
@@ -40,9 +39,10 @@ public class TestInscriptionsMethod extends TonapiTestBase {
         assertNotNull(response);
     }
 
+    // todo.. test
     @Test
     public void testCreateInscriptionComments() {
-        Map<String, String> response = tonapi.getInscriptions().createInscriptionComment(
+        InscriptionCommentResponse response = tonapi.getInscriptions().createInscriptionComment(
                 ACCOUNT_ID,
                 Utils.toNano(AMOUNT, 9),
                 null,

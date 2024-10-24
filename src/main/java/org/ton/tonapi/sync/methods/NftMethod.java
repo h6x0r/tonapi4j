@@ -33,7 +33,7 @@ public class NftMethod extends TonapiClientBase {
         Map<String, Object> params = new HashMap<>();
         params.put("limit", limit);
         params.put("offset", offset);
-        return this.get(method, params, null, new TypeReference<>() {
+        return this.get(method, params, null, new TypeReference<NftCollections>() {
         });
     }
 
@@ -56,7 +56,7 @@ public class NftMethod extends TonapiClientBase {
      */
     public NftCollection getCollectionByCollectionAddress(String accountId) throws TONAPIError {
         String method = String.format("v2/nfts/collections/%s", accountId);
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<NftCollection>() {
         });
     }
 
@@ -74,7 +74,7 @@ public class NftMethod extends TonapiClientBase {
         Map<String, Object> params = new HashMap<>();
         params.put("limit", limit);
         params.put("offset", offset);
-        return this.get(method, params, null, new TypeReference<>() {
+        return this.get(method, params, null, new TypeReference<NftItems>() {
         });
     }
 
@@ -113,7 +113,7 @@ public class NftMethod extends TonapiClientBase {
      */
     public NftItem getItemByAddress(String accountId) throws TONAPIError {
         String method = String.format("v2/nfts/%s", accountId);
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<NftItem>() {
         });
     }
 
@@ -128,7 +128,7 @@ public class NftMethod extends TonapiClientBase {
         String method = "v2/nfts/_bulk";
         Map<String, Object> body = new HashMap<>();
         body.put("account_ids", accountIds);
-        return this.post(method, null, body, null, new TypeReference<>() {
+        return this.post(method, null, body, null, new TypeReference<NftItems>() {
         });
     }
 
@@ -165,7 +165,7 @@ public class NftMethod extends TonapiClientBase {
         }
         Map<String, String> headers = new HashMap<>();
         headers.put("Accept-Language", acceptLanguage != null ? acceptLanguage : "en");
-        return this.get(method, params, headers, new TypeReference<>() {
+        return this.get(method, params, headers, new TypeReference<AccountEvents>() {
         });
     }
 

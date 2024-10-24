@@ -21,7 +21,7 @@ public class StorageMethod extends AsyncTonapiClientBase {
      */
     public CompletableFuture<StorageProviders> getProviders() throws TONAPIError {
         String method = "v2/storage/providers";
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<StorageProviders>() {
         });
     }
 }

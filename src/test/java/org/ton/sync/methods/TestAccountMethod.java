@@ -48,7 +48,7 @@ public class TestAccountMethod extends TonapiTestBase {
         Accounts response = tonapi.getAccounts().getBulkInfo(Collections.singletonList(ACCOUNT_ID));
         assertNotNull(response);
 
-        for (var a : response.getAccounts()) {
+        for (Account a : response.getAccounts()) {
             System.out.println("Account address: " + a.getAddress());
             System.out.println("Account address (userfriendly): " + a.getAddress().toUserFriendly(false));
             System.out.println("Account address (userfriendly and bounceable): " + a.getAddress().toUserFriendly(true));
@@ -96,7 +96,7 @@ public class TestAccountMethod extends TonapiTestBase {
 
     @Test
     public void testGetNfts() {
-        var collection = "";
+        String collection = "";
 
         NftItems response = tonapi.getAccounts().getNfts(ACCOUNT_ID, LIMIT, OFFSET, collection, false);
         assertNotNull(response);

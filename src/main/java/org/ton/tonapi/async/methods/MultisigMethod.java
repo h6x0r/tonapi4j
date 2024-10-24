@@ -22,7 +22,7 @@ public class MultisigMethod extends AsyncTonapiClientBase {
      */
     public CompletableFuture<Multisig> getAccountInfo(String accountId) throws TONAPIError {
         String method = String.format("v2/multisig/%s", accountId);
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<Multisig>() {
         });
     }
 }

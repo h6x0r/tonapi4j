@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import org.ton.exception.TONAPIError;
 import org.ton.schema.events.AccountEvents;
 import org.ton.schema.inscriptions.InscriptionBalances;
+import org.ton.schema.inscriptions.InscriptionCommentResponse;
 import org.ton.tonapi.async.AsyncTonapiClientBase;
 
 import java.util.HashMap;
@@ -33,7 +34,7 @@ public class InscriptionsMethod extends AsyncTonapiClientBase {
         Map<String, Object> params = new HashMap<>();
         params.put("limit", limit);
         params.put("offset", offset);
-        return this.get(method, params, null, new TypeReference<>() {
+        return this.get(method, params, null, new TypeReference<InscriptionBalances>() {
         });
     }
 
@@ -60,7 +61,7 @@ public class InscriptionsMethod extends AsyncTonapiClientBase {
         }
         Map<String, String> headers = new HashMap<>();
         headers.put("Accept-Language", acceptLanguage != null ? acceptLanguage : "en");
-        return this.get(method, params, headers, new TypeReference<>() {
+        return this.get(method, params, headers, new TypeReference<AccountEvents>() {
         });
     }
 
@@ -89,7 +90,7 @@ public class InscriptionsMethod extends AsyncTonapiClientBase {
         }
         Map<String, String> headers = new HashMap<>();
         headers.put("Accept-Language", acceptLanguage != null ? acceptLanguage : "en");
-        return this.get(method, params, headers, new TypeReference<>() {
+        return this.get(method, params, headers, new TypeReference<AccountEvents>() {
         });
     }
 
@@ -103,10 +104,10 @@ public class InscriptionsMethod extends AsyncTonapiClientBase {
      * @param comment     Optional comment
      * @param operation   Operation type ("transfer"). Default is "transfer".
      * @param ticker      Token ticker. Default is "nano".
-     * @return CompletableFuture<Map < String, String>> containing the response data
+     * @return CompletableFuture<InscriptionCommentResponse> object containing the comment and destination
      * @throws TONAPIError if the request fails
      */
-    public CompletableFuture<Map<String, String>> createInscriptionComment(
+    public CompletableFuture<InscriptionCommentResponse> createInscriptionComment(
             String who,
             long amount,
             String type,
@@ -127,7 +128,7 @@ public class InscriptionsMethod extends AsyncTonapiClientBase {
         if (comment != null && !comment.isEmpty()) {
             params.put("comment", comment);
         }
-        return this.get(method, params, null, new TypeReference<>() {
+        return this.get(method, params, null, new TypeReference<InscriptionCommentResponse>() {
         });
     }
 }

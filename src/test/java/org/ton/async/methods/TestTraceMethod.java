@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.ton.async.AsyncTonapiTestBase;
 import org.ton.schema.traces.Trace;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -32,10 +30,7 @@ public class TestTraceMethod extends AsyncTonapiTestBase {
     @Test
     @Disabled
     public void testEmulate() throws Exception {
-        Map<String, Object> body = new HashMap<>();
-        body.put("boc", BOC);
-
-        CompletableFuture<Trace> future = tonapi.getTraces().emulate(body, null);
+        CompletableFuture<Trace> future = tonapi.getTraces().emulate(BOC, null);
         Trace response = future.get();
         assertNotNull(response);
     }

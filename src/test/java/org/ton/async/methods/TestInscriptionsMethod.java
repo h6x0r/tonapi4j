@@ -5,9 +5,9 @@ import org.junit.jupiter.api.Test;
 import org.ton.async.AsyncTonapiTestBase;
 import org.ton.schema.events.AccountEvents;
 import org.ton.schema.inscriptions.InscriptionBalances;
+import org.ton.schema.inscriptions.InscriptionCommentResponse;
 import org.ton.util.Utils;
 
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -46,7 +46,7 @@ public class TestInscriptionsMethod extends AsyncTonapiTestBase {
 
     @Test
     public void testCreateInscriptionComments() throws Exception {
-        CompletableFuture<Map<String, String>> future = tonapi.getInscriptions().createInscriptionComment(
+        CompletableFuture<InscriptionCommentResponse> future = tonapi.getInscriptions().createInscriptionComment(
                 ACCOUNT_ID,
                 Utils.toNano(AMOUNT, 9),
                 null,
@@ -55,7 +55,7 @@ public class TestInscriptionsMethod extends AsyncTonapiTestBase {
                 null,
                 null
         );
-        Map<String, String> response = future.get();
+        InscriptionCommentResponse response = future.get();
         assertNotNull(response);
     }
 }

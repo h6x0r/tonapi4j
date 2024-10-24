@@ -10,7 +10,6 @@ import org.ton.exception.TONAPIUnauthorizedError;
 
 import java.nio.ByteBuffer;
 import java.util.Base64;
-import java.util.HexFormat;
 
 public class Utils {
     private static int calculateCrcXmodem(byte[] payload) {
@@ -37,7 +36,7 @@ public class Utils {
         int tag = isBounceable ? 0x11 : 0x51;
         String[] parts = address.split(":");
         long workchainId = Long.parseLong(parts[0]);
-        byte[] key = HexFormat.of().parseHex(parts[1]);
+        byte[] key = hexStringToByteArray(parts[1]);
 
         ByteBuffer payload = ByteBuffer.allocate(34); // tag (1 byte) + workchainId (1 byte) + key (32 bytes)
         payload.put((byte) tag);
@@ -57,6 +56,30 @@ public class Utils {
         return base64Address;
     }
 
+    /**
+     * Converts a hexadecimal string to a byte array.
+     *
+     * @param s the hexadecimal string to be converted
+     * @return a byte array corresponding to the given hexadecimal string
+     * @throws IllegalArgumentException if the string has an odd length or contains invalid characters
+     */
+    private static byte[] hexStringToByteArray(String s) {
+        int len = s.length();
+        if (len % 2 != 0) {
+            throw new IllegalArgumentException("Invalid length of the hexadecimal string");
+        }
+        byte[] data = new byte[len / 2];
+        for (int i = 0; i < len; i += 2) {
+            int firstDigit = Character.digit(s.charAt(i), 16);
+            int secondDigit = Character.digit(s.charAt(i + 1), 16);
+            if (firstDigit == -1 || secondDigit == -1) {
+                throw new IllegalArgumentException("Invalid character in the hexadecimal string");
+            }
+            data[i / 2] = (byte) ((firstDigit << 4) + secondDigit);
+        }
+        return data;
+    }
+
     public static String userFriendlyToRaw(String address) {
         byte[] decoded = Base64.getUrlDecoder().decode(address);
 
@@ -65,8 +88,25 @@ public class Utils {
         byte[] keyBytes = new byte[32];
         buffer.get(keyBytes);
 
-        String keyHex = HexFormat.of().withLowerCase().formatHex(keyBytes);
+        String keyHex = bytesToHex(keyBytes).toLowerCase();
         return workchainId + ":" + keyHex;
+    }
+
+    /**
+     * Converts a byte array to a hexadecimal string.
+     *
+     * @param bytes The byte array to convert.
+     * @return The resulting hexadecimal string.
+     */
+    private static String bytesToHex(byte[] bytes) {
+        char[] hexArray = "0123456789abcdef".toCharArray();
+        char[] hexChars = new char[bytes.length * 2];
+        for (int j = 0; j < bytes.length; j++) {
+            int v = bytes[j] & 0xFF;
+            hexChars[j * 2] = hexArray[v >>> 4];
+            hexChars[j * 2 + 1] = hexArray[v & 0x0F];
+        }
+        return new String(hexChars);
     }
 
     public static Number toAmount(long value, int decimals, int precision) {
@@ -98,14 +138,22 @@ public class Utils {
     }
 
     public static TONAPIError mapStatusCodeToException(int statusCode, String message) {
-        return switch (statusCode) {
-            case 400 -> new TONAPIBadRequestError(message);
-            case 401 -> new TONAPIUnauthorizedError(message);
-            case 403, 500 -> new TONAPIInternalServerError(message);
-            case 404 -> new TONAPINotFoundError(message);
-            case 429 -> new TONAPITooManyRequestsError(message);
-            case 501 -> new TONAPINotImplementedError(message);
-            default -> new TONAPIError(message);
-        };
+        switch (statusCode) {
+            case 400:
+                return new TONAPIBadRequestError(message);
+            case 401:
+                return new TONAPIUnauthorizedError(message);
+            case 403:
+                return new TONAPIInternalServerError(message);
+            case 404:
+                return new TONAPINotFoundError(message);
+            case 429:
+                return new TONAPITooManyRequestsError(message);
+            case 500:
+                return new TONAPIInternalServerError(message);
+            case 501:
+                return new TONAPINotImplementedError(message);
+        }
+        return new TONAPIError(message);
     }
 }

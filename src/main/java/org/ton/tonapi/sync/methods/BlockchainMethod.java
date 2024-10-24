@@ -17,6 +17,7 @@ import org.ton.schema.transactions.Transactions;
 import org.ton.tonapi.sync.TonapiClientBase;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
 
@@ -39,7 +40,7 @@ public class BlockchainMethod extends TonapiClientBase {
         Map<String, Object> params = new HashMap<>();
         params.put("from", from);
         params.put("to", to);
-        return this.get(method, params, null, new TypeReference<>() {
+        return this.get(method, params, null, new TypeReference<ReducedBlocks>() {
         });
     }
 
@@ -52,7 +53,7 @@ public class BlockchainMethod extends TonapiClientBase {
      */
     public BlockchainBlock getBlockData(String blockId) throws TONAPIError {
         String method = String.format("v2/blockchain/blocks/%s", blockId);
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<BlockchainBlock>() {
         });
     }
 
@@ -65,7 +66,7 @@ public class BlockchainMethod extends TonapiClientBase {
      */
     public BlockchainBlockShards getBlock(long masterchainSeqno) throws TONAPIError {
         String method = String.format("v2/blockchain/masterchain/%d/shards", masterchainSeqno);
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<BlockchainBlockShards>() {
         });
     }
 
@@ -81,7 +82,7 @@ public class BlockchainMethod extends TonapiClientBase {
      */
     public BlockchainBlocks getBlocks(long masterchainSeqno) throws TONAPIError {
         String method = String.format("v2/blockchain/masterchain/%d/blocks", masterchainSeqno);
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<BlockchainBlocks>() {
         });
     }
 
@@ -97,7 +98,7 @@ public class BlockchainMethod extends TonapiClientBase {
      */
     public Transactions getTransactionsShards(long masterchainSeqno) throws TONAPIError {
         String method = String.format("v2/blockchain/masterchain/%d/transactions", masterchainSeqno);
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<Transactions>() {
         });
     }
 
@@ -110,7 +111,7 @@ public class BlockchainMethod extends TonapiClientBase {
      */
     public BlockchainConfig getBlockchainConfig(long masterchainSeqno) throws TONAPIError {
         String method = String.format("v2/blockchain/masterchain/%d/config", masterchainSeqno);
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<BlockchainConfig>() {
         });
     }
 
@@ -123,7 +124,7 @@ public class BlockchainMethod extends TonapiClientBase {
      */
     public RawBlockchainConfig getRawBlockchainConfig(long masterchainSeqno) throws TONAPIError {
         String method = String.format("v2/blockchain/masterchain/%d/config/raw", masterchainSeqno);
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<RawBlockchainConfig>() {
         });
     }
 
@@ -136,7 +137,7 @@ public class BlockchainMethod extends TonapiClientBase {
      */
     public Transactions getTransactionFromBlock(String blockId) throws TONAPIError {
         String method = String.format("v2/blockchain/blocks/%s/transactions", blockId);
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<Transactions>() {
         });
     }
 
@@ -149,7 +150,7 @@ public class BlockchainMethod extends TonapiClientBase {
      */
     public Transaction getTransactionData(String transactionId) throws TONAPIError {
         String method = String.format("v2/blockchain/transactions/%s", transactionId);
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<Transaction>() {
         });
     }
 
@@ -162,7 +163,7 @@ public class BlockchainMethod extends TonapiClientBase {
      */
     public Transaction getTransactionByMessage(String msgId) throws TONAPIError {
         String method = String.format("v2/blockchain/messages/%s/transaction", msgId);
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<Transaction>() {
         });
     }
 
@@ -174,7 +175,7 @@ public class BlockchainMethod extends TonapiClientBase {
      */
     public Validators getValidators() throws TONAPIError {
         String method = "v2/blockchain/validators";
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<Validators>() {
         });
     }
 
@@ -186,7 +187,7 @@ public class BlockchainMethod extends TonapiClientBase {
      */
     public BlockchainBlock getLastMasterchainBlock() throws TONAPIError {
         String method = "v2/blockchain/masterchain-head";
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<BlockchainBlock>() {
         });
     }
 
@@ -199,7 +200,7 @@ public class BlockchainMethod extends TonapiClientBase {
      */
     public BlockchainRawAccount getAccountInfo(String accountId) throws TONAPIError {
         String method = String.format("v2/blockchain/accounts/%s", accountId);
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<BlockchainRawAccount>() {
         });
     }
 
@@ -227,7 +228,7 @@ public class BlockchainMethod extends TonapiClientBase {
         if (afterLt != null) {
             params.put("after_lt", afterLt);
         }
-        return this.get(method, params, null, new TypeReference<>() {
+        return this.get(method, params, null, new TypeReference<Transactions>() {
         });
     }
 
@@ -251,25 +252,30 @@ public class BlockchainMethod extends TonapiClientBase {
             for (String arg : args) {
                 joiner.add("args=" + arg);
             }
-            methodBuilder.append(joiner.toString());
+            methodBuilder.append(joiner);
         }
         String method = methodBuilder.toString();
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<MethodExecutionResult>() {
         });
     }
 
     /**
      * Send message to the blockchain.
      *
-     * @param body Request body containing 'boc', either a single boc or a batch of bocs serialized in base64
-     * @return true if the message was sent successfully
+     * @param boc  the base64 serialized bag-of-cells Example -> te6ccgECBQEAARUAAkWIAWTtae+KgtbrX26Bep8JSq8lFLfGOoyGR/xwdjfvpvEaHg
+     * @param bocs a batch of bocs serialized in base64/hex are accepted
+     * @return String if the message was sent successfully
      * @throws TONAPIError if the request fails
      */
-    public boolean sendMessage(Map<String, Object> body) throws TONAPIError {
+    public String sendMessage(String boc, List<String> bocs) throws TONAPIError {
         String method = "v2/blockchain/message";
-        this.post(method, null, body, null, new TypeReference<>() {
+
+        Map<String, Object> body = new HashMap<>();
+        body.put("boc", boc);
+        body.put("batch", bocs);
+
+        return this.post(method, null, body, null, new TypeReference<String>() {
         });
-        return true;
     }
 
     /**
@@ -280,7 +286,7 @@ public class BlockchainMethod extends TonapiClientBase {
      */
     public BlockchainConfig getConfig() throws TONAPIError {
         String method = "v2/blockchain/config";
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<BlockchainConfig>() {
         });
     }
 
@@ -292,7 +298,7 @@ public class BlockchainMethod extends TonapiClientBase {
      */
     public RawBlockchainConfig getRawConfig() throws TONAPIError {
         String method = "v2/blockchain/config/raw";
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<RawBlockchainConfig>() {
         });
     }
 
@@ -305,7 +311,7 @@ public class BlockchainMethod extends TonapiClientBase {
      */
     public BlockchainAccountInspect inspectAccount(String accountId) throws TONAPIError {
         String method = String.format("v2/blockchain/accounts/%s/inspect", accountId);
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<BlockchainAccountInspect>() {
         });
     }
 }

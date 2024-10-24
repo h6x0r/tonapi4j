@@ -44,7 +44,7 @@ public class EventsMethod extends TonapiClientBase {
         String method = String.format("v2/events/%s", eventId);
         Map<String, String> headers = new HashMap<>();
         headers.put("Accept-Language", acceptLanguage != null ? acceptLanguage : "en");
-        return this.get(method, null, headers, new TypeReference<>() {
+        return this.get(method, null, headers, new TypeReference<Event>() {
         });
     }
 
@@ -72,7 +72,7 @@ public class EventsMethod extends TonapiClientBase {
         }
         Map<String, String> headers = new HashMap<>();
         headers.put("Accept-Language", acceptLanguage != null ? acceptLanguage : "en");
-        return this.post(method, params.isEmpty() ? null : params, body, headers, new TypeReference<>() {
+        return this.post(method, params.isEmpty() ? null : params, body, headers, new TypeReference<Event>() {
         });
     }
 }

@@ -20,7 +20,7 @@ import javax.websocket.WebSocketContainer;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -113,7 +113,7 @@ public class WebSocketMethod extends AsyncTonapiClientBase {
     @OnMessage
     public void onMessage(String message) {
         try {
-            Map<String, Object> data = objectMapper.readValue(message, new TypeReference<>() {
+            Map<String, Object> data = objectMapper.readValue(message, new TypeReference<Map<String, Object>>() {
             });
             String jsonrpc = (String) data.get("jsonrpc");
             if (!"2.0".equals(jsonrpc)) {
@@ -226,7 +226,7 @@ public class WebSocketMethod extends AsyncTonapiClientBase {
         if (accounts != null && !accounts.isEmpty()) {
             String accountsParam = String.join(",", accounts);
             String formattedParam = "accounts=" + accountsParam;
-            subscribeWebSocket(method, Arrays.asList(formattedParam), (params, handlerArgs) -> {
+            subscribeWebSocket(method, Collections.singletonList(formattedParam), (params, handlerArgs) -> {
                 try {
                     MempoolEventData event = objectMapper.convertValue(params, MempoolEventData.class);
                     handler.accept(event, handlerArgs);
@@ -235,7 +235,7 @@ public class WebSocketMethod extends AsyncTonapiClientBase {
                 }
             }, args);
         } else {
-            subscribeWebSocket(method, List.of(), (params, handlerArgs) -> {
+            subscribeWebSocket(method, Collections.emptyList(), (params, handlerArgs) -> {
                 try {
                     MempoolEventData event = objectMapper.convertValue(params, MempoolEventData.class);
                     handler.accept(event, handlerArgs);

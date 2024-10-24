@@ -23,7 +23,7 @@ public class TonconnectMethod extends TonapiClientBase {
      */
     public TonconnectPayload getPayload() throws TONAPIError {
         String method = "v2/tonconnect/payload";
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<TonconnectPayload>() {
         });
     }
 
@@ -38,7 +38,7 @@ public class TonconnectMethod extends TonapiClientBase {
         String method = "v2/tonconnect/stateinit";
         Map<String, Object> body = new HashMap<>();
         body.put("state_init", stateInit);
-        return this.post(method, null, body, null, new TypeReference<>() {
+        return this.post(method, null, body, null, new TypeReference<AccountInfoByStateInit>() {
         });
     }
 }

@@ -38,7 +38,7 @@ public class SSEMethod extends AsyncTonapiClientBase {
             params.put("operations", String.join(",", operations));
         }
 
-        this.subscribe(method, params, new TypeReference<>() {
+        this.subscribe(method, params, new TypeReference<TransactionEventData>() {
         }, handler);
     }
 
@@ -56,7 +56,7 @@ public class SSEMethod extends AsyncTonapiClientBase {
         Map<String, Object> params = new HashMap<>();
         params.put("accounts", String.join(",", accounts));
 
-        this.subscribe(method, params, new TypeReference<>() {
+        this.subscribe(method, params, new TypeReference<TraceEventData>() {
         }, handler);
     }
 
@@ -74,7 +74,7 @@ public class SSEMethod extends AsyncTonapiClientBase {
         Map<String, Object> params = new HashMap<>();
         params.put("accounts", String.join(",", accounts));
 
-        this.subscribe(method, params, new TypeReference<>() {
+        this.subscribe(method, params, new TypeReference<MempoolEventData>() {
         }, handler);
     }
 
@@ -94,7 +94,7 @@ public class SSEMethod extends AsyncTonapiClientBase {
             params.put("workchain", workchain);
         }
 
-        this.subscribe(method, params, new TypeReference<>() {
+        this.subscribe(method, params, new TypeReference<BlockEventData>() {
         }, handler);
     }
 }

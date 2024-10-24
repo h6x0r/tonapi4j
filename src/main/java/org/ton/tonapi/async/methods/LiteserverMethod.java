@@ -36,7 +36,7 @@ public class LiteserverMethod extends AsyncTonapiClientBase {
      */
     public CompletableFuture<RawMasterChainInfo> getMasterchainInfo() throws TONAPIError {
         String method = "v2/liteserver/get_masterchain_info";
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<RawMasterChainInfo>() {
         });
     }
 
@@ -51,7 +51,7 @@ public class LiteserverMethod extends AsyncTonapiClientBase {
         String method = "v2/liteserver/get_masterchain_info_ext";
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
-        return this.get(method, params, null, new TypeReference<>() {
+        return this.get(method, params, null, new TypeReference<RawMasterChainInfoExt>() {
         });
     }
 
@@ -80,7 +80,7 @@ public class LiteserverMethod extends AsyncTonapiClientBase {
      */
     public CompletableFuture<RawGetBlock> getRawBlock(String blockId) throws TONAPIError {
         String method = String.format("v2/liteserver/get_block/%s", blockId);
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<RawGetBlock>() {
         });
     }
 
@@ -93,7 +93,7 @@ public class LiteserverMethod extends AsyncTonapiClientBase {
      */
     public CompletableFuture<RawBlockState> getRawState(String blockId) throws TONAPIError {
         String method = String.format("v2/liteserver/get_state/%s", blockId);
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<RawBlockState>() {
         });
     }
 
@@ -111,19 +111,22 @@ public class LiteserverMethod extends AsyncTonapiClientBase {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
 
-        return this.get(method, params, null, new TypeReference<>() {
+        return this.get(method, params, null, new TypeReference<RawBlockHeader>() {
         });
     }
 
     /**
      * Send raw message to blockchain.
      *
-     * @param body Data expected by the API
-     * @return CompletableFuture<Integer> Code as Integer, or null if not available
+     * @param bodyMsg the base64 serialized bag-of-cells Example -> te6ccgECBQEAARUAAkWIAWTtae+KgtbrX26Bep8JSq8lFLfGOoyGR/xwdjfvpvEaHg
+     * @return CompletableFuture<Integer> status code 200
      * @throws TONAPIError if the request fails
      */
-    public CompletableFuture<Integer> sendMessage(Map<String, Object> body) throws TONAPIError {
+    public CompletableFuture<Integer> sendMessage(String bodyMsg) throws TONAPIError {
         String method = "v2/liteserver/send_message";
+
+        Map<String, Object> body = new HashMap<>();
+        body.put("body", bodyMsg);
 
         return this.post(method, null, body, null, new TypeReference<Map<String, Object>>() {
                 })
@@ -147,7 +150,7 @@ public class LiteserverMethod extends AsyncTonapiClientBase {
         if (targetBlock != null && !targetBlock.isEmpty()) {
             params.put("target_block", targetBlock);
         }
-        return this.get(method, params.isEmpty() ? null : params, null, new TypeReference<>() {
+        return this.get(method, params.isEmpty() ? null : params, null, new TypeReference<RawAccountState>() {
         });
     }
 
@@ -167,7 +170,7 @@ public class LiteserverMethod extends AsyncTonapiClientBase {
         params.put("workchain", workchain);
         params.put("shard", shard);
         params.put("exact", exact);
-        return this.get(method, params, null, new TypeReference<>() {
+        return this.get(method, params, null, new TypeReference<RawShardInfo>() {
         });
     }
 
@@ -180,7 +183,7 @@ public class LiteserverMethod extends AsyncTonapiClientBase {
      */
     public CompletableFuture<RawShardsInfo> getAllRawShardsInfo(String blockId) throws TONAPIError {
         String method = String.format("v2/liteserver/get_all_shards_info/%s", blockId);
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<RawShardsInfo>() {
         });
     }
 
@@ -200,7 +203,7 @@ public class LiteserverMethod extends AsyncTonapiClientBase {
         params.put("lt", lt);
         params.put("hash", hash);
         params.put("count", count);
-        return this.get(method, params, null, new TypeReference<>() {
+        return this.get(method, params, null, new TypeReference<RawTransactions>() {
         });
     }
 
@@ -232,7 +235,7 @@ public class LiteserverMethod extends AsyncTonapiClientBase {
         if (lt != null) {
             params.put("lt", lt);
         }
-        return this.get(method, params, null, new TypeReference<>() {
+        return this.get(method, params, null, new TypeReference<RawListBlockTransactions>() {
         });
     }
 
@@ -253,7 +256,7 @@ public class LiteserverMethod extends AsyncTonapiClientBase {
         if (targetBlock != null && !targetBlock.isEmpty()) {
             params.put("target_block", targetBlock);
         }
-        return this.get(method, params, null, new TypeReference<>() {
+        return this.get(method, params, null, new TypeReference<RawBlockProof>() {
         });
     }
 
@@ -269,7 +272,7 @@ public class LiteserverMethod extends AsyncTonapiClientBase {
         String method = String.format("v2/liteserver/get_config_all/%s", blockId);
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
-        return this.get(method, params, null, new TypeReference<>() {
+        return this.get(method, params, null, new TypeReference<RawConfig>() {
         });
     }
 
@@ -282,7 +285,7 @@ public class LiteserverMethod extends AsyncTonapiClientBase {
      */
     public CompletableFuture<RawShardProof> getShardBlockProof(String blockId) throws TONAPIError {
         String method = String.format("v2/liteserver/get_shard_block_proof/%s", blockId);
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<RawShardProof>() {
         });
     }
 
@@ -294,7 +297,7 @@ public class LiteserverMethod extends AsyncTonapiClientBase {
      */
     public CompletableFuture<OutMsgQueueSize> getOutMsgQueueSize() throws TONAPIError {
         String method = "v2/liteserver/get_out_msg_queue_size";
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<OutMsgQueueSize>() {
         });
     }
 }

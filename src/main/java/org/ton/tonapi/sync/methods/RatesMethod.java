@@ -32,7 +32,7 @@ public class RatesMethod extends TonapiClientBase {
         Map<String, Object> params = new HashMap<>();
         params.put("tokens", String.join(",", tokens));
         params.put("currencies", String.join(",", currencies));
-        return this.get(method, params, null, new TypeReference<>() {
+        return this.get(method, params, null, new TypeReference<Rates>() {
         });
     }
 
@@ -59,7 +59,7 @@ public class RatesMethod extends TonapiClientBase {
         if (endDate != null) {
             params.put("end_date", endDate);
         }
-        return this.get(method, params, null, new TypeReference<>() {
+        return this.get(method, params, null, new TypeReference<ChartRates>() {
         });
     }
 
@@ -71,7 +71,7 @@ public class RatesMethod extends TonapiClientBase {
      */
     public MarketsTonRates getTonPriceFromMarkets() throws TONAPIError {
         String method = "v2/rates/markets";
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<MarketsTonRates>() {
         });
     }
 }

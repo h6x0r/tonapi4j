@@ -19,7 +19,7 @@ public class StorageMethod extends TonapiClientBase {
      */
     public StorageProviders getProviders() throws TONAPIError {
         String method = "v2/storage/providers";
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<StorageProviders>() {
         });
     }
 }

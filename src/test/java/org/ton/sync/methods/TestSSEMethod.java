@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.ton.sync.TonapiTestBase;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class TestSSEMethod extends TonapiTestBase {
 
     private static final String ACCOUNT_ID = "EQChB2eMoFG4ThuEsZ6ehlBPKJXOjNxlR5B7qKZNGIv256Da";
-    private static final List<String> ACCOUNTS_IDS = Arrays.asList("ALL"); // TonAPI will stream all traces
+    private static final List<String> ACCOUNTS_IDS = Collections.singletonList("ALL"); // TonAPI will stream all traces
 
     @Test
     public void testSubscribeToTransactions() throws Exception {
@@ -60,7 +60,7 @@ public class TestSSEMethod extends TonapiTestBase {
                     assertNotNull(eventData);
                     latch.countDown();
                 },
-                Arrays.asList(ACCOUNT_ID)
+                Collections.singletonList(ACCOUNT_ID)
         );
 
         boolean received = latch.await(30, TimeUnit.SECONDS);

@@ -33,25 +33,29 @@ public class TracesMethod extends TonapiClientBase {
             traceId = hexString.toString();
         }
         String method = String.format("v2/traces/%s", traceId);
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<Trace>() {
         });
     }
 
     /**
      * Emulate sending message to blockchain.
      *
-     * @param body                 Map containing the 'boc' serialized to base64
+     * @param boc                  the base64 serialized bag-of-cells Example -> te6ccgECBQEAARUAAkWIAWTtae+KgtbrX26Bep8JSq8lFLfGOoyGR/xwdjfvpvEaHg
      * @param ignoreSignatureCheck Optional parameter to ignore signature check
      * @return Trace object containing the emulated trace
      * @throws TONAPIError if the request fails
      */
-    public Trace emulate(Map<String, Object> body, Boolean ignoreSignatureCheck) throws TONAPIError {
+    public Trace emulate(String boc, Boolean ignoreSignatureCheck) throws TONAPIError {
         String method = "v2/traces/emulate";
+
+        Map<String, String> body = new HashMap<>();
+        body.put("boc", boc);
+
         Map<String, Object> params = new HashMap<>();
         if (ignoreSignatureCheck != null && ignoreSignatureCheck) {
             params.put("ignore_signature_check", ignoreSignatureCheck);
         }
-        return this.post(method, params.isEmpty() ? null : params, body, null, new TypeReference<>() {
+        return this.post(method, params.isEmpty() ? null : params, body, null, new TypeReference<Trace>() {
         });
     }
 }

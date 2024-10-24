@@ -52,7 +52,7 @@ public class TestAccountMethod extends AsyncTonapiTestBase {
         Accounts response = future.get();
         assertNotNull(response);
 
-        for (var a : response.getAccounts()) {
+        for (Account a : response.getAccounts()) {
             System.out.println("Account address: " + a.getAddress());
             System.out.println("Account address (userfriendly): " + a.getAddress().toUserFriendly(false));
             System.out.println("Account address (userfriendly and bounceable): " + a.getAddress().toUserFriendly(true));
@@ -105,7 +105,7 @@ public class TestAccountMethod extends AsyncTonapiTestBase {
 
     @Test
     public void testGetNfts() throws Exception {
-        var collection = "";
+        String collection = "";
 
         CompletableFuture<NftItems> future = tonapi.getAccounts().getNfts(ACCOUNT_ID, LIMIT, OFFSET, collection, false);
         NftItems response = future.get();

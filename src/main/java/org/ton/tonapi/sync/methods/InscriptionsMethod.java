@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import org.ton.exception.TONAPIError;
 import org.ton.schema.events.AccountEvents;
 import org.ton.schema.inscriptions.InscriptionBalances;
+import org.ton.schema.inscriptions.InscriptionCommentResponse;
 import org.ton.tonapi.sync.TonapiClientBase;
 
 import java.util.HashMap;
@@ -32,7 +33,7 @@ public class InscriptionsMethod extends TonapiClientBase {
         Map<String, Object> params = new HashMap<>();
         params.put("limit", limit);
         params.put("offset", offset);
-        return this.get(method, params, null, new TypeReference<>() {
+        return this.get(method, params, null, new TypeReference<InscriptionBalances>() {
         });
     }
 
@@ -59,7 +60,7 @@ public class InscriptionsMethod extends TonapiClientBase {
         }
         Map<String, String> headers = new HashMap<>();
         headers.put("Accept-Language", acceptLanguage != null ? acceptLanguage : "en");
-        return this.get(method, params, headers, new TypeReference<>() {
+        return this.get(method, params, headers, new TypeReference<AccountEvents>() {
         });
     }
 
@@ -89,7 +90,7 @@ public class InscriptionsMethod extends TonapiClientBase {
         }
         Map<String, String> headers = new HashMap<>();
         headers.put("Accept-Language", acceptLanguage != null ? acceptLanguage : "en");
-        return this.get(method, params, headers, new TypeReference<>() {
+        return this.get(method, params, headers, new TypeReference<AccountEvents>() {
         });
     }
 
@@ -103,10 +104,10 @@ public class InscriptionsMethod extends TonapiClientBase {
      * @param comment     Optional comment
      * @param operation   Operation type ("transfer"). Default is "transfer".
      * @param ticker      Token ticker. Default is "nano".
-     * @return Map containing the response data
+     * @return InscriptionCommentResponse object containing the comment and destination
      * @throws TONAPIError if the request fails
      */
-    public Map<String, String> createInscriptionComment(
+    public InscriptionCommentResponse createInscriptionComment(
             String who,
             long amount,
             String type,
@@ -127,7 +128,7 @@ public class InscriptionsMethod extends TonapiClientBase {
         if (comment != null && !comment.isEmpty()) {
             params.put("comment", comment);
         }
-        return this.get(method, params, null, new TypeReference<>() {
+        return this.get(method, params, null, new TypeReference<InscriptionCommentResponse>() {
         });
     }
 }

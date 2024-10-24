@@ -35,7 +35,7 @@ public class LiteserverMethod extends TonapiClientBase {
      */
     public RawMasterChainInfo getMasterchainInfo() throws TONAPIError {
         String method = "v2/liteserver/get_masterchain_info";
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<RawMasterChainInfo>() {
         });
     }
 
@@ -50,7 +50,7 @@ public class LiteserverMethod extends TonapiClientBase {
         String method = "v2/liteserver/get_masterchain_info_ext";
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
-        return this.get(method, params, null, new TypeReference<>() {
+        return this.get(method, params, null, new TypeReference<RawMasterChainInfoExt>() {
         });
     }
 
@@ -62,7 +62,7 @@ public class LiteserverMethod extends TonapiClientBase {
      */
     public Long getTime() throws TONAPIError {
         String method = "v2/liteserver/get_time";
-        Map<String, Object> response = this.get(method, null, null, new TypeReference<>() {
+        Map<String, Object> response = this.get(method, null, null, new TypeReference<Map<String, Object>>() {
         });
         Object time = response.get("time");
         return time != null ? ((Number) time).longValue() : null;
@@ -77,7 +77,7 @@ public class LiteserverMethod extends TonapiClientBase {
      */
     public RawGetBlock getRawBlock(String blockId) throws TONAPIError {
         String method = String.format("v2/liteserver/get_block/%s", blockId);
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<RawGetBlock>() {
         });
     }
 
@@ -90,7 +90,7 @@ public class LiteserverMethod extends TonapiClientBase {
      */
     public RawBlockState getRawState(String blockId) throws TONAPIError {
         String method = String.format("v2/liteserver/get_state/%s", blockId);
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<RawBlockState>() {
         });
     }
 
@@ -108,7 +108,7 @@ public class LiteserverMethod extends TonapiClientBase {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
 
-        return this.get(method, params, null, new TypeReference<>() {
+        return this.get(method, params, null, new TypeReference<RawBlockHeader>() {
         });
     }
 
@@ -125,7 +125,7 @@ public class LiteserverMethod extends TonapiClientBase {
         Map<String, String> body = new HashMap<>();
         body.put("body", bodyMsg);
 
-        Map<String, Object> response = this.post(method, null, body, null, new TypeReference<>() {
+        Map<String, Object> response = this.post(method, null, body, null, new TypeReference<Map<String, Object>>() {
         });
         Object code = response.get("code");
         return code != null ? ((Number) code).intValue() : null;
@@ -145,7 +145,7 @@ public class LiteserverMethod extends TonapiClientBase {
         if (targetBlock != null && !targetBlock.isEmpty()) {
             params.put("target_block", targetBlock);
         }
-        return this.get(method, params.isEmpty() ? null : params, null, new TypeReference<>() {
+        return this.get(method, params.isEmpty() ? null : params, null, new TypeReference<RawAccountState>() {
         });
     }
 
@@ -165,7 +165,7 @@ public class LiteserverMethod extends TonapiClientBase {
         params.put("workchain", workchain);
         params.put("shard", shard);
         params.put("exact", exact);
-        return this.get(method, params, null, new TypeReference<>() {
+        return this.get(method, params, null, new TypeReference<RawShardInfo>() {
         });
     }
 
@@ -178,7 +178,7 @@ public class LiteserverMethod extends TonapiClientBase {
      */
     public RawShardsInfo getAllRawShardsInfo(String blockId) throws TONAPIError {
         String method = String.format("v2/liteserver/get_all_shards_info/%s", blockId);
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<RawShardsInfo>() {
         });
     }
 
@@ -198,7 +198,7 @@ public class LiteserverMethod extends TonapiClientBase {
         params.put("lt", lt);
         params.put("hash", hash);
         params.put("count", count);
-        return this.get(method, params, null, new TypeReference<>() {
+        return this.get(method, params, null, new TypeReference<RawTransactions>() {
         });
     }
 
@@ -229,7 +229,7 @@ public class LiteserverMethod extends TonapiClientBase {
         if (lt != null) {
             params.put("lt", lt);
         }
-        return this.get(method, params, null, new TypeReference<>() {
+        return this.get(method, params, null, new TypeReference<RawListBlockTransactions>() {
         });
     }
 
@@ -250,7 +250,7 @@ public class LiteserverMethod extends TonapiClientBase {
         if (targetBlock != null && !targetBlock.isEmpty()) {
             params.put("target_block", targetBlock);
         }
-        return this.get(method, params, null, new TypeReference<>() {
+        return this.get(method, params, null, new TypeReference<RawBlockProof>() {
         });
     }
 
@@ -266,7 +266,7 @@ public class LiteserverMethod extends TonapiClientBase {
         String method = String.format("v2/liteserver/get_config_all/%s", blockId);
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
-        return this.get(method, params, null, new TypeReference<>() {
+        return this.get(method, params, null, new TypeReference<RawConfig>() {
         });
     }
 
@@ -279,7 +279,7 @@ public class LiteserverMethod extends TonapiClientBase {
      */
     public RawShardProof getShardBlockProof(String blockId) throws TONAPIError {
         String method = String.format("v2/liteserver/get_shard_block_proof/%s", blockId);
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<RawShardProof>() {
         });
     }
 
@@ -291,7 +291,7 @@ public class LiteserverMethod extends TonapiClientBase {
      */
     public OutMsgQueueSize getOutMsgQueueSize() throws TONAPIError {
         String method = "v2/liteserver/get_out_msg_queue_size";
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<OutMsgQueueSize>() {
         });
     }
 }

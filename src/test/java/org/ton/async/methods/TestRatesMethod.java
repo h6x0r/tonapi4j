@@ -7,6 +7,7 @@ import org.ton.schema.rates.MarketsTonRates;
 import org.ton.schema.rates.Rates;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -17,7 +18,7 @@ import static org.ton.utils.Constants.START_DATE;
 
 public class TestRatesMethod extends AsyncTonapiTestBase {
 
-    private static final List<String> TOKENS = Arrays.asList("TON");
+    private static final List<String> TOKENS = Collections.singletonList("TON");
     private static final List<String> CURRENCIES = Arrays.asList("USD", "RUB");
 
     @Test

@@ -45,7 +45,7 @@ public class AccountsMethod extends AsyncTonapiClientBase {
         Map<String, Object> body = new HashMap<>();
         body.put("account_ids", accountIds);
 
-        return this.post(method, null, body, null, new TypeReference<>() {
+        return this.post(method, null, body, null, new TypeReference<Accounts>() {
         });
     }
 
@@ -58,7 +58,7 @@ public class AccountsMethod extends AsyncTonapiClientBase {
      */
     public CompletableFuture<Account> getInfo(String accountId) throws TONAPIError {
         String method = String.format("v2/accounts/%s", accountId);
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<Account>() {
         });
     }
 
@@ -71,7 +71,7 @@ public class AccountsMethod extends AsyncTonapiClientBase {
      */
     public CompletableFuture<DomainNames> getDomains(String accountId) throws TONAPIError {
         String method = String.format("v2/accounts/%s/dns/backresolve", accountId);
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<DomainNames>() {
         });
     }
 
@@ -96,7 +96,7 @@ public class AccountsMethod extends AsyncTonapiClientBase {
         if (currencies != null && !currencies.isEmpty()) {
             params.put("currencies", String.join(",", currencies));
         }
-        return this.get(method, params, null, new TypeReference<>() {
+        return this.get(method, params, null, new TypeReference<JettonsBalances>() {
         });
     }
 
@@ -123,7 +123,7 @@ public class AccountsMethod extends AsyncTonapiClientBase {
         if (currencies != null && !currencies.isEmpty()) {
             params.put("currencies", String.join(",", currencies));
         }
-        return this.get(method, params, null, new TypeReference<>() {
+        return this.get(method, params, null, new TypeReference<JettonBalance>() {
         });
     }
 
@@ -160,7 +160,7 @@ public class AccountsMethod extends AsyncTonapiClientBase {
         }
         Map<String, String> headers = new HashMap<>();
         headers.put("Accept-Language", acceptLanguage);
-        return this.get(method, params, headers, new TypeReference<>() {
+        return this.get(method, params, headers, new TypeReference<AccountEvents>() {
         });
     }
 
@@ -199,7 +199,7 @@ public class AccountsMethod extends AsyncTonapiClientBase {
         }
         Map<String, String> headers = new HashMap<>();
         headers.put("Accept-Language", acceptLanguage);
-        return this.get(method, params, headers, new TypeReference<>() {
+        return this.get(method, params, headers, new TypeReference<AccountEvents>() {
         });
     }
 
@@ -228,7 +228,7 @@ public class AccountsMethod extends AsyncTonapiClientBase {
         if (collection != null && !collection.isEmpty()) {
             params.put("collection", collection);
         }
-        return this.get(method, params, null, new TypeReference<>() {
+        return this.get(method, params, null, new TypeReference<NftItems>() {
         });
     }
 
@@ -313,7 +313,7 @@ public class AccountsMethod extends AsyncTonapiClientBase {
         }
         Map<String, String> headers = new HashMap<>();
         headers.put("Accept-Language", acceptLanguage);
-        return this.get(method, params, headers, new TypeReference<>() {
+        return this.get(method, params, headers, new TypeReference<AccountEvents>() {
         });
     }
 
@@ -339,7 +339,7 @@ public class AccountsMethod extends AsyncTonapiClientBase {
         }
         Map<String, String> headers = new HashMap<>();
         headers.put("Accept-Language", acceptLanguage);
-        return this.get(method, params, headers, new TypeReference<>() {
+        return this.get(method, params, headers, new TypeReference<AccountEvent>() {
         });
     }
 
@@ -355,7 +355,7 @@ public class AccountsMethod extends AsyncTonapiClientBase {
         String method = String.format("v2/accounts/%s/traces", accountId);
         Map<String, Object> params = new HashMap<>();
         params.put("limit", limit);
-        return this.get(method, params, null, new TypeReference<>() {
+        return this.get(method, params, null, new TypeReference<TraceIds>() {
         });
     }
 
@@ -392,7 +392,7 @@ public class AccountsMethod extends AsyncTonapiClientBase {
         }
         Map<String, String> headers = new HashMap<>();
         headers.put("Accept-Language", acceptLanguage);
-        return this.get(method, params, headers, new TypeReference<>() {
+        return this.get(method, params, headers, new TypeReference<AccountEvents>() {
         });
     }
 
@@ -405,7 +405,7 @@ public class AccountsMethod extends AsyncTonapiClientBase {
      */
     public CompletableFuture<Subscriptions> getSubscriptions(String accountId) throws TONAPIError {
         String method = String.format("v2/accounts/%s/subscriptions", accountId);
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<Subscriptions>() {
         });
     }
 
@@ -418,7 +418,7 @@ public class AccountsMethod extends AsyncTonapiClientBase {
      */
     public CompletableFuture<Void> reindex(String accountId) throws TONAPIError {
         String method = String.format("v2/accounts/%s/reindex", accountId);
-        return this.post(method, null, null, null, new TypeReference<>() {
+        return this.post(method, null, null, null, new TypeReference<Void>() {
         });
     }
 
@@ -433,7 +433,7 @@ public class AccountsMethod extends AsyncTonapiClientBase {
         String method = "v2/accounts/search";
         Map<String, Object> params = new HashMap<>();
         params.put("name", name);
-        return this.get(method, params, null, new TypeReference<>() {
+        return this.get(method, params, null, new TypeReference<FoundAccounts>() {
         });
     }
 
@@ -451,7 +451,7 @@ public class AccountsMethod extends AsyncTonapiClientBase {
         if (period != null) {
             params.put("period", period);
         }
-        return this.get(method, params, null, new TypeReference<>() {
+        return this.get(method, params, null, new TypeReference<DnsExpiring>() {
         });
     }
 
@@ -464,7 +464,7 @@ public class AccountsMethod extends AsyncTonapiClientBase {
      */
     public CompletableFuture<PublicKey> getPublicKey(String accountId) throws TONAPIError {
         String method = String.format("v2/accounts/%s/publickey", accountId);
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<PublicKey>() {
         });
     }
 
@@ -477,7 +477,7 @@ public class AccountsMethod extends AsyncTonapiClientBase {
      */
     public CompletableFuture<Multisigs> getAccountMultisigs(String accountId) throws TONAPIError {
         String method = String.format("v2/accounts/%s/multisigs", accountId);
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<Multisigs>() {
         });
     }
 
@@ -498,7 +498,7 @@ public class AccountsMethod extends AsyncTonapiClientBase {
         Map<String, Object> params = new HashMap<>();
         params.put("start_date", startDate);
         params.put("end_date", endDate);
-        return this.get(method, params, null, new TypeReference<>() {
+        return this.get(method, params, null, new TypeReference<BalanceChange>() {
         });
     }
 
@@ -524,7 +524,7 @@ public class AccountsMethod extends AsyncTonapiClientBase {
         }
         Map<String, String> headers = new HashMap<>();
         headers.put("Accept-Language", acceptLanguage);
-        return this.post(method, params, body, headers, new TypeReference<>() {
+        return this.post(method, params, body, headers, new TypeReference<AccountEvent>() {
         });
     }
 }

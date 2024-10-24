@@ -32,7 +32,7 @@ public class EmulateMethod extends AsyncTonapiClientBase {
         Map<String, String> body = new HashMap<>();
         body.put("boc", boc);
 
-        return this.post(method, null, body, null, new TypeReference<>() {
+        return this.post(method, null, body, null, new TypeReference<DecodedMessage>() {
         });
     }
 
@@ -60,7 +60,7 @@ public class EmulateMethod extends AsyncTonapiClientBase {
         }
         Map<String, String> headers = new HashMap<>();
         headers.put("Accept-Language", acceptLanguage != null ? acceptLanguage : "en");
-        return this.post(method, params.isEmpty() ? null : params, body, headers, new TypeReference<>() {
+        return this.post(method, params.isEmpty() ? null : params, body, headers, new TypeReference<Event>() {
         });
     }
 
@@ -84,7 +84,7 @@ public class EmulateMethod extends AsyncTonapiClientBase {
         if (ignoreSignatureCheck != null) {
             params.put("ignore_signature_check", ignoreSignatureCheck);
         }
-        return this.post(method, params.isEmpty() ? null : params, body, null, new TypeReference<>() {
+        return this.post(method, params.isEmpty() ? null : params, body, null, new TypeReference<Trace>() {
         });
     }
 
@@ -106,7 +106,7 @@ public class EmulateMethod extends AsyncTonapiClientBase {
 
         Map<String, String> headers = new HashMap<>();
         headers.put("Accept-Language", acceptLanguage != null ? acceptLanguage : "en");
-        return this.post(method, null, body, headers, new TypeReference<>() {
+        return this.post(method, null, body, headers, new TypeReference<MessageConsequences>() {
         });
     }
 
@@ -130,7 +130,7 @@ public class EmulateMethod extends AsyncTonapiClientBase {
 
         Map<String, String> headers = new HashMap<>();
         headers.put("Accept-Language", acceptLanguage != null ? acceptLanguage : "en");
-        return this.post(method, null, body, headers, new TypeReference<>() {
+        return this.post(method, null, body, headers, new TypeReference<AccountEvent>() {
         });
     }
 }

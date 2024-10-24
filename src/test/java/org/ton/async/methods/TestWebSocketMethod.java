@@ -10,7 +10,7 @@ import org.ton.schema.events.mempool.MempoolEventData;
 import org.ton.tonapi.async.AsyncTonapi;
 import org.ton.tonapi.async.methods.WebSocketMethod;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class TestWebSocketMethod {
 
     private static final String ACCOUNT_ID = "Ef8zMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzM0vF";
-    private static final List<String> ACCOUNTS_IDS = Arrays.asList("ALL");
+    private static final List<String> ACCOUNTS_IDS = Collections.singletonList("ALL");
     private static final String API_KEY = "AGAGTULGBG6ODXAAAAAAJESYBZKG4TE23XN3665FH2ZLQXISGSOSGUC3PHQQV6NRNB6TNQI";
     private static WebSocketMethod webSocketMethod;
 
@@ -80,7 +80,7 @@ public class TestWebSocketMethod {
             latch.countDown();
         };
 
-        webSocketMethod.subscribeToMempool(Arrays.asList(ACCOUNT_ID), handler);
+        webSocketMethod.subscribeToMempool(Collections.singletonList(ACCOUNT_ID), handler);
 
         boolean eventReceived = latch.await(30, TimeUnit.SECONDS);
         assertTrue(eventReceived, "Did not receive MempoolEventData within the timeout period");

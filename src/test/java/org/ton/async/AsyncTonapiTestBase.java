@@ -5,7 +5,7 @@ import org.ton.tonapi.async.AsyncTonapi;
 
 public class AsyncTonapiTestBase {
 
-    private static final String API_KEY = "AGAGTULGTS2A7WIAAAAJWNBAJIN53OJIORIGI3DUTJVQTCMNOEZRUCSZNQ5MA3TL6WPDQ5I";
+    private static final String API_KEY = "AGAGTULGU7DKUXAAAAAGOFZNLVY2GWKD5JH2G3N3OR2NDGBPI5FEPHO3D3FP3LXIG3AYCOI";
     protected AsyncTonapi tonapi;
     protected AsyncTonapi testnetTonapi;
 

@@ -7,6 +7,7 @@ import org.ton.schema.rates.Rates;
 import org.ton.sync.TonapiTestBase;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -16,7 +17,7 @@ import static org.ton.utils.Constants.START_DATE;
 
 public class TestRatesMethod extends TonapiTestBase {
 
-    private static final List<String> TOKENS = Arrays.asList("TON");
+    private static final List<String> TOKENS = Collections.singletonList("TON");
     private static final List<String> CURRENCIES = Arrays.asList("USD", "RUB");
 
     @Test

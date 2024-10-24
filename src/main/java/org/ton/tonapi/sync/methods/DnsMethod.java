@@ -26,7 +26,7 @@ public class DnsMethod extends TonapiClientBase {
      */
     public DomainInfo getInfo(String domainName) throws TONAPIError {
         String method = String.format("v2/dns/%s", domainName);
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<DomainInfo>() {
         });
     }
 
@@ -39,7 +39,7 @@ public class DnsMethod extends TonapiClientBase {
      */
     public DNSRecord resolve(String domainName) throws TONAPIError {
         String method = String.format("v2/dns/%s/resolve", domainName);
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<DNSRecord>() {
         });
     }
 
@@ -52,7 +52,7 @@ public class DnsMethod extends TonapiClientBase {
      */
     public DomainBids bids(String domainName) throws TONAPIError {
         String method = String.format("v2/dns/%s/bids", domainName);
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<DomainBids>() {
         });
     }
 
@@ -67,7 +67,7 @@ public class DnsMethod extends TonapiClientBase {
         String method = "v2/dns/auctions";
         Map<String, Object> params = new HashMap<>();
         params.put("tld", tld);
-        return this.get(method, params, null, new TypeReference<>() {
+        return this.get(method, params, null, new TypeReference<Auctions>() {
         });
     }
 }

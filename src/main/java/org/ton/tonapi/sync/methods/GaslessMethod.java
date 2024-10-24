@@ -26,7 +26,7 @@ public class GaslessMethod extends TonapiClientBase {
      */
     public GaslessConfig getConfig() throws TONAPIError {
         String method = "v2/gasless/config";
-        return this.get(method, null, null, new TypeReference<>() {
+        return this.get(method, null, null, new TypeReference<GaslessConfig>() {
         });
     }
 
@@ -52,7 +52,7 @@ public class GaslessMethod extends TonapiClientBase {
         body.put("wallet_public_key", walletPublicKey);
         body.put("messages", messages);
 
-        return this.post(method, null, body, null, new TypeReference<>() {
+        return this.post(method, null, body, null, new TypeReference<SignRawParams>() {
         });
     }
 
@@ -60,7 +60,7 @@ public class GaslessMethod extends TonapiClientBase {
      * Send message to the blockchain.
      *
      * @param walletPublicKey The public key of the wallet.
-     * @param boc             A single BOC or a batch of BOCs serialized in base64.
+     * @param boc             the base64 serialized bag-of-cells Example -> te6ccgECBQEAARUAAkWIAWTtae+KgtbrX26Bep8JSq8lFLfGOoyGR/xwdjfvpvEaHg
      * @return true if the message was sent successfully
      * @throws TONAPIError if the request fails
      */
@@ -71,7 +71,7 @@ public class GaslessMethod extends TonapiClientBase {
         body.put("wallet_public_key", walletPublicKey);
         body.put("boc", boc);
 
-        this.post(method, null, body, null, new TypeReference<>() {
+        this.post(method, null, body, null, new TypeReference<Object>() {
         });
         return true;
     }

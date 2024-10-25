@@ -1,11 +1,10 @@
 package org.ton.tonapi.async.methods;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import java.util.concurrent.CompletableFuture;
 import org.ton.exception.TONAPIError;
 import org.ton.schema.storage.StorageProviders;
 import org.ton.tonapi.async.AsyncTonapiClientBase;
-
-import java.util.concurrent.CompletableFuture;
 
 public class StorageMethod extends AsyncTonapiClientBase {
 

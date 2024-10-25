@@ -7,6 +7,7 @@ import org.ton.tonapi.sync.methods.BlockchainMethod;
 import org.ton.tonapi.sync.methods.DnsMethod;
 import org.ton.tonapi.sync.methods.EmulateMethod;
 import org.ton.tonapi.sync.methods.EventsMethod;
+import org.ton.tonapi.sync.methods.GaslessMethod;
 import org.ton.tonapi.sync.methods.InscriptionsMethod;
 import org.ton.tonapi.sync.methods.JettonsMethod;
 import org.ton.tonapi.sync.methods.LiteserverMethod;
@@ -109,5 +110,9 @@ public class Tonapi extends TonapiClientBase {
 
   public WalletMethod getWallet() {
     return new WalletMethod(this);
+  }
+
+  public GaslessMethod getGasless() {
+    return new GaslessMethod(this);
   }
 }

@@ -33,16 +33,17 @@ public class GaslessMethod extends AsyncTonapiClientBase {
   /**
    * Returns estimated gas price.
    *
-   * @param masterId        Jetton Master ID.
-   * @param walletAddress   Wallet address the tx is going to be made from
-   * @param walletPublicKey The public key of the wallet
-   * @param messageList     List of messages in a form of BOC
+   * @param jettonMasterAddress Jetton Master Address.
+   * @param walletAddress       Wallet address the tx is going to be made from
+   * @param walletPublicKey     The public key of the wallet
+   * @param messageList         List of messages in a form of BOC
    * @return CompletableFuture of SignRawParams object containing the estimated gas price
    * @throws TONAPIError if the request fails
    */
-  public CompletableFuture<SignRawParams> estimateGasPrice(String masterId, String walletAddress,
+  public CompletableFuture<SignRawParams> estimateGasPrice(String jettonMasterAddress,
+      String walletAddress,
       String walletPublicKey, List<String> messageList) throws TONAPIError {
-    String method = String.format("v2/gasless/estimate/%s", masterId);
+    String method = String.format("v2/gasless/estimate/%s", jettonMasterAddress);
 
     List<Pair<String, String>> messages = messageList.stream()
         .map(msg -> new Pair<>("boc", msg))

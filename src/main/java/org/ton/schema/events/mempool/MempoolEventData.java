@@ -10,5 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MempoolEventData {
-    private String boc;
+
+  private String boc;
 }

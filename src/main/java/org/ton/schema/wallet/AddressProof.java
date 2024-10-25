@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AddressProof {
-    private String address;
-    private Proof proof;
+
+  private String address;
+  private Proof proof;
 }

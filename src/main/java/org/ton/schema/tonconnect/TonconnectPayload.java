@@ -10,5 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TonconnectPayload {
-    private String payload;
+
+  private String payload;
 }

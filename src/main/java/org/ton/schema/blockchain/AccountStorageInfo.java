@@ -10,9 +10,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AccountStorageInfo {
-    private Long usedCells;
-    private Long usedBits;
-    private Long usedPublicCells;
-    private Long lastPaid;
-    private Long duePayment;
+
+  private Long usedCells;
+  private Long usedBits;
+  private Long usedPublicCells;
+  private Long lastPaid;
+  private Long duePayment;
 }

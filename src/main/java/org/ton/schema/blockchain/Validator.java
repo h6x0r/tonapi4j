@@ -11,8 +11,9 @@ import org.ton.schema.Address;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Validator {
-    private Address address;
-    private String adnlAddress;
-    private Long stake;
-    private Long maxFactor;
+
+  private Address address;
+  private String adnlAddress;
+  private Long stake;
+  private Long maxFactor;
 }

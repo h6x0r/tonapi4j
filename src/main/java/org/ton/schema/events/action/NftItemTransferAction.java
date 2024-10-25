@@ -11,11 +11,12 @@ import org.ton.schema.accounts.AccountAddress;
 @NoArgsConstructor
 @AllArgsConstructor
 public class NftItemTransferAction {
-    private AccountAddress sender;
-    private AccountAddress recipient;
-    private String nft;
-    private String comment;
-    private EncryptedComment encryptedComment;
-    private String payload;
-    private Refund refund;
+
+  private AccountAddress sender;
+  private AccountAddress recipient;
+  private String nft;
+  private String comment;
+  private EncryptedComment encryptedComment;
+  private String payload;
+  private Refund refund;
 }

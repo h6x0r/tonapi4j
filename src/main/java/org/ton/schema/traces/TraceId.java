@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TraceId {
-    private String id;
-    private Long utime;
+
+  private String id;
+  private Long utime;
 }

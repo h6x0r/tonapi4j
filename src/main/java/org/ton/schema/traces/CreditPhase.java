@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreditPhase {
-    private Long feesCollected;
-    private Long credit;
+
+  private Long feesCollected;
+  private Long credit;
 }

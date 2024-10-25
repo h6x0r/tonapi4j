@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OutMsgQueueShard {
-    private BlockRaw id;
-    private Long size;
+
+  private BlockRaw id;
+  private Long size;
 }

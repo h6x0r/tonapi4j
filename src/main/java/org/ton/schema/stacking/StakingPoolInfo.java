@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StakingPoolInfo {
-    private PoolImplementation implementation;
-    private PoolInfo pool;
+
+  private PoolImplementation implementation;
+  private PoolInfo pool;
 }

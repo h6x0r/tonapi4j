@@ -10,9 +10,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BlockEventData {
-    private Long workchain;
-    private String shard;
-    private Long seqno;
-    private String rootHash;
-    private String fileHash;
+
+  private Long workchain;
+  private String shard;
+  private Long seqno;
+  private String rootHash;
+  private String fileHash;
 }

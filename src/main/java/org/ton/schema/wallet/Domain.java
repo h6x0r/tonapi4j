@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Domain {
-    private Long lengthBytes;
-    private String value;
+
+  private Long lengthBytes;
+  private String value;
 }

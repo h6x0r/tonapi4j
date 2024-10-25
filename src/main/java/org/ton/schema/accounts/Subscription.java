@@ -12,15 +12,16 @@ import org.ton.schema.Balance;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Subscription {
-    private Address address;
-    private Address walletAddress;
-    private Address beneficiaryAddress;
-    private Balance amount;
-    private Long period;
-    private Long startTime;
-    private Long timeout;
-    private Long lastPaymentTime;
-    private Long lastRequestTime;
-    private Long subscriptionId;
-    private Long failedAttempts;
+
+  private Address address;
+  private Address walletAddress;
+  private Address beneficiaryAddress;
+  private Balance amount;
+  private Long period;
+  private Long startTime;
+  private Long timeout;
+  private Long lastPaymentTime;
+  private Long lastRequestTime;
+  private Long subscriptionId;
+  private Long failedAttempts;
 }

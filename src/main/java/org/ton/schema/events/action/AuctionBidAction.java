@@ -13,9 +13,10 @@ import org.ton.schema.nft.Price;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AuctionBidAction {
-    private String auctionType;
-    private Price amount;
-    private NftItem nft;
-    private AccountAddress bidder;
-    private AccountAddress auction;
+
+  private String auctionType;
+  private Price amount;
+  private NftItem nft;
+  private AccountAddress bidder;
+  private AccountAddress auction;
 }

@@ -10,9 +10,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Proof {
-    private Long timestamp;
-    private Domain domain;
-    private String signature;
-    private String payload;
-    private String stateInit;
+
+  private Long timestamp;
+  private Domain domain;
+  private String signature;
+  private String payload;
+  private String stateInit;
 }

@@ -12,5 +12,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Accounts {
-    private List<Account> accounts;
+
+  private List<Account> accounts;
 }

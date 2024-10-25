@@ -11,6 +11,7 @@ import org.ton.schema.accounts.AccountAddress;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ElectionsDepositStakeAction {
-    private Long amount;
-    private AccountAddress staker;
+
+  private Long amount;
+  private AccountAddress staker;
 }

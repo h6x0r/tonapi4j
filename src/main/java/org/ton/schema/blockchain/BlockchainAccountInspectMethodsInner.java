@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BlockchainAccountInspectMethodsInner {
-    private Long id;
-    private String method;
+
+  private Long id;
+  private String method;
 }

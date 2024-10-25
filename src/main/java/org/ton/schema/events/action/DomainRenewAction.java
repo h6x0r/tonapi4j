@@ -12,7 +12,8 @@ import org.ton.schema.accounts.AccountAddress;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DomainRenewAction {
-    private String domain;
-    private Address contractAddress;
-    private AccountAddress renewer;
+
+  private String domain;
+  private Address contractAddress;
+  private AccountAddress renewer;
 }

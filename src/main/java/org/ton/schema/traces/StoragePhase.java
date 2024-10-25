@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StoragePhase {
-    private Long feesCollected;
-    private Long feesDue;
-    private AccStatusChange statusChange;
+
+  private Long feesCollected;
+  private Long feesDue;
+  private AccStatusChange statusChange;
 }

@@ -10,11 +10,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ActionPhase {
-    private Boolean success;
-    private Long resultCode;
-    private Long totalActions;
-    private Long skippedActions;
-    private Long fwdFees;
-    private Long totalFees;
-    private String resultCodeDescription;
+
+  private Boolean success;
+  private Long resultCode;
+  private Long totalActions;
+  private Long skippedActions;
+  private Long fwdFees;
+  private Long totalFees;
+  private String resultCodeDescription;
 }

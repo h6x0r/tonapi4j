@@ -10,12 +10,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ComputePhase {
-    private Boolean skipped;
-    private ComputeSkipReason skipReason;
-    private Boolean success;
-    private Long gasFees;
-    private Long gasUsed;
-    private Long vmSteps;
-    private Long exitCode;
-    private String exitCodeDescription;
+
+  private Boolean skipped;
+  private ComputeSkipReason skipReason;
+  private Boolean success;
+  private Long gasFees;
+  private Long gasUsed;
+  private Long vmSteps;
+  private Long exitCode;
+  private String exitCodeDescription;
 }

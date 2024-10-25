@@ -10,5 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GaslessJetton {
-    private String masterId;
+
+  private String masterId;
 }

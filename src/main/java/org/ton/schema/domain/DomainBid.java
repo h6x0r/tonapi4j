@@ -12,14 +12,15 @@ import org.ton.schema.accounts.AccountAddress;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DomainBid {
-    private Boolean success;
-    private Long value;
 
-    @JsonProperty("txTime")
-    private Long txTime;
+  private Boolean success;
+  private Long value;
 
-    @JsonProperty("txHash")
-    private String txHash;
+  @JsonProperty("txTime")
+  private Long txTime;
 
-    private AccountAddress bidder;
+  @JsonProperty("txHash")
+  private String txHash;
+
+  private AccountAddress bidder;
 }

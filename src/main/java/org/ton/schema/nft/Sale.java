@@ -12,8 +12,9 @@ import org.ton.schema.accounts.AccountAddress;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Sale {
-    private Address address;
-    private AccountAddress market;
-    private AccountAddress owner;
-    private Price price;
+
+  private Address address;
+  private AccountAddress market;
+  private AccountAddress owner;
+  private Price price;
 }

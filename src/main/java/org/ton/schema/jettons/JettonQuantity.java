@@ -11,7 +11,8 @@ import org.ton.schema.accounts.AccountAddress;
 @NoArgsConstructor
 @AllArgsConstructor
 public class JettonQuantity {
-    private String quantity;
-    private AccountAddress walletAddress;
-    private JettonPreview jetton;
+
+  private String quantity;
+  private AccountAddress walletAddress;
+  private JettonPreview jetton;
 }

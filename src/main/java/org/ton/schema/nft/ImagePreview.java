@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ImagePreview {
-    private String resolution;
-    private String url;
+
+  private String resolution;
+  private String url;
 }

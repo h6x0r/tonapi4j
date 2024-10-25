@@ -11,10 +11,11 @@ import org.ton.schema.Address;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StorageProvider {
-    private Address address;
-    private Boolean acceptNewContracts;
-    private Long ratePerMbDay;
-    private Long maxSpan;
-    private Long minimalFileSize;
-    private Long maximalFileSize;
+
+  private Address address;
+  private Boolean acceptNewContracts;
+  private Long ratePerMbDay;
+  private Long maxSpan;
+  private Long minimalFileSize;
+  private Long maximalFileSize;
 }

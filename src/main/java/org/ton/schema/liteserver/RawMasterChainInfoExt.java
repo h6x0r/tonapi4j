@@ -10,12 +10,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RawMasterChainInfoExt {
-    private Integer mode;
-    private Long version;
-    private Long capabilities;
-    private BlockRaw last;
-    private Long lastUtime;
-    private Long now;
-    private String stateRootHash;
-    private InitStateRaw init;
+
+  private Integer mode;
+  private Long version;
+  private Long capabilities;
+  private BlockRaw last;
+  private Long lastUtime;
+  private Long now;
+  private String stateRootHash;
+  private InitStateRaw init;
 }

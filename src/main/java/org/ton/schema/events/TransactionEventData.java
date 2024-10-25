@@ -11,7 +11,8 @@ import org.ton.schema.Address;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TransactionEventData {
-    private Address accountId;
-    private Long lt;
-    private String txHash;
+
+  private Address accountId;
+  private Long lt;
+  private String txHash;
 }

@@ -1,209 +1,211 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <artifactId>tonapi4j</artifactId>
 
-    <groupId>io.github.h6x0r</groupId>
-    <artifactId>tonapi4j</artifactId>
-    <version>1.0.4-SNAPSHOT</version>
+  <build>
+    <plugins>
 
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-        <apache.http.client>4.5.13</apache.http.client>
-        <lombok.version>1.18.24</lombok.version>
-        <jackson.databind.version>2.18.0</jackson.databind.version>
-        <slf4j.version>1.6.1</slf4j.version>
-        <tyrus.client.version>1.17</tyrus.client.version>
-        <junit.jupiter.engine>5.10.0</junit.jupiter.engine>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <surefire.plugin.version>3.1.2</surefire.plugin.version>
-        <maven.compiler.plugin>3.10.1</maven.compiler.plugin>
-        <maven.source.plugin>2.2.1</maven.source.plugin>
-        <maven.javadoc.plugin>3.4.1</maven.javadoc.plugin>
-        <maven.gpg.plugin>1.5</maven.gpg.plugin>
-        <central.publishing.maven.plugin>0.6.0</central.publishing.maven.plugin>
-        <nexus.staging.plugin>1.6.7</nexus.staging.plugin>
-    </properties>
+      <!-- Maven Compiler Plugin: Compiles Java source code -->
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>${maven.compiler.source}</source>
+          <target>${maven.compiler.target}</target>
+        </configuration>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>${maven.compiler.plugin}</version>
+      </plugin>
 
-    <name>tonapi4j</name>
-    <description>Java library for interacting with TON API</description>
-    <url>https://github.com/h6x0r/tonapi4j</url>
+      <!-- Maven Surefire Plugin: Runs unit tests during the test phase -->
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>${surefire.plugin.version}</version>
+      </plugin>
 
-    <licenses>
-        <license>
-            <name>MIT License</name>
-            <url>https://opensource.org/licenses/MIT</url>
-        </license>
-    </licenses>
+      <!-- Maven Source Plugin: Generates a source JAR to include source code in the build artifacts -->
+      <plugin>
+        <artifactId>maven-source-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>
+            <id>attach-sources</id>
+            <phase>package</phase>
+          </execution>
+        </executions>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>${maven.source.plugin}</version>
+      </plugin>
 
-    <developers>
-        <developer>
-            <id>h6x0r</id>
-            <name>h6x0r</name>
-            <email>inteldom5@gmail.com</email>
-        </developer>
-    </developers>
+      <!-- Maven Javadoc Plugin: Generates Javadoc documentation and packages it into a JAR -->
+      <plugin>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <doclint>none</doclint>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+            <id>attach-javadocs</id>
+            <phase>package</phase>
+          </execution>
+        </executions>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>${maven.javadoc.plugin}</version>
+      </plugin>
 
-    <scm>
-        <connection>scm:git:git://github.com/h6x0r/tonapi4j.git</connection>
-        <developerConnection>scm:git:git@github.com:h6x0r/tonapi4j.git</developerConnection>
-        <url>https://github.com/h6x0r/tonapi4j/tree/master</url>
-        <tag>tonapi4j-1.0.3</tag>
-    </scm>
+      <!-- Maven GPG plugin used to sign the components. -->
+      <plugin>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>sign</goal>
+            </goals>
+            <id>sign-artifacts</id>
+            <phase>verify</phase>
+          </execution>
+        </executions>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>${maven.gpg.plugin}</version>
+      </plugin>
 
-    <dependencies>
+      <!-- Maven Plugin for Deployment and Release -->
 
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-            <scope>provided</scope>
-        </dependency>
+      <plugin>
+        <artifactId>central-publishing-maven-plugin</artifactId>
+        <configuration>
+          <autoPublish>true</autoPublish>
+          <publishingServerId>central</publishingServerId>
+        </configuration>
+        <extensions>true</extensions>
+        <groupId>org.sonatype.central</groupId>
+        <version>${central.publishing.maven.plugin}</version>
+      </plugin>
 
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${jackson.databind.version}</version>
-        </dependency>
+      <plugin>
+        <artifactId>nexus-staging-maven-plugin</artifactId>
+        <configuration>
+          <autoReleaseAfterClose>true</autoReleaseAfterClose>
+          <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+          <serverId>central</serverId>
+        </configuration>
+        <extensions>true</extensions>
+        <groupId>org.sonatype.plugins</groupId>
+        <version>${nexus.staging.plugin}</version>
+      </plugin>
 
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
+    </plugins>
+  </build>
+  <dependencies>
 
-        <!-- Websocket client dependency -->
-        <dependency>
-            <groupId>org.glassfish.tyrus.bundles</groupId>
-            <artifactId>tyrus-standalone-client</artifactId>
-            <version>${tyrus.client.version}</version>
-        </dependency>
+    <dependency>
+      <artifactId>lombok</artifactId>
+      <groupId>org.projectlombok</groupId>
+      <scope>provided</scope>
+      <version>${lombok.version}</version>
+    </dependency>
 
-        <dependency>
-            <groupId>com.squareup.okhttp3</groupId>
-            <artifactId>okhttp</artifactId>
-            <version>3.14.9</version>
-        </dependency>
+    <dependency>
+      <artifactId>jackson-databind</artifactId>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <version>${jackson.databind.version}</version>
+    </dependency>
 
-        <!-- JUnit 5 -->
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit.jupiter.engine}</version>
-            <scope>test</scope>
-        </dependency>
+    <dependency>
+      <artifactId>slf4j-api</artifactId>
+      <groupId>org.slf4j</groupId>
+      <version>${slf4j.version}</version>
+    </dependency>
 
-    </dependencies>
+    <!-- Websocket client dependency -->
+    <dependency>
+      <artifactId>tyrus-standalone-client</artifactId>
+      <groupId>org.glassfish.tyrus.bundles</groupId>
+      <version>${tyrus.client.version}</version>
+    </dependency>
 
-    <build>
-        <plugins>
+    <dependency>
+      <artifactId>okhttp</artifactId>
+      <groupId>com.squareup.okhttp3</groupId>
+      <version>4.12.0</version>
+    </dependency>
 
-            <!-- Maven Compiler Plugin: Compiles Java source code -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven.compiler.plugin}</version>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
-                </configuration>
-            </plugin>
+    <!-- JUnit 5 -->
+    <dependency>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <groupId>org.junit.jupiter</groupId>
+      <scope>test</scope>
+      <version>${junit.jupiter.engine}</version>
+    </dependency>
 
-            <!-- Maven Surefire Plugin: Runs unit tests during the test phase -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>${surefire.plugin.version}</version>
-            </plugin>
+  </dependencies>
+  <description>Java library for interacting with TON API</description>
 
-            <!-- Maven Source Plugin: Generates a source JAR to include source code in the build artifacts -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>${maven.source.plugin}</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+  <developers>
+    <developer>
+      <email>inteldom5@gmail.com</email>
+      <id>h6x0r</id>
+      <name>h6x0r</name>
+    </developer>
+  </developers>
 
-            <!-- Maven Javadoc Plugin: Generates Javadoc documentation and packages it into a JAR -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>${maven.javadoc.plugin}</version>
-                <configuration>
-                    <doclint>none</doclint>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+  <distributionManagement>
+    <repository>
+      <id>ossrh</id>
+      <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
+  <groupId>io.github.h6x0r</groupId>
+  <licenses>
+    <license>
+      <name>MIT License</name>
+      <url>https://opensource.org/licenses/MIT</url>
+    </license>
+  </licenses>
 
-            <!-- Maven GPG plugin used to sign the components. -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-                <version>${maven.gpg.plugin}</version>
-                <executions>
-                    <execution>
-                        <id>sign-artifacts</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>sign</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+  <modelVersion>4.0.0</modelVersion>
 
-            <!-- Maven Plugin for Deployment and Release -->
+  <name>tonapi4j</name>
 
-            <plugin>
-                <groupId>org.sonatype.central</groupId>
-                <artifactId>central-publishing-maven-plugin</artifactId>
-                <version>${central.publishing.maven.plugin}</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <publishingServerId>central</publishingServerId>
-                    <autoPublish>true</autoPublish>
-                </configuration>
-            </plugin>
+  <properties>
+    <apache.http.client>4.5.13</apache.http.client>
+    <central.publishing.maven.plugin>0.6.0</central.publishing.maven.plugin>
+    <jackson.databind.version>2.18.0</jackson.databind.version>
+    <junit.jupiter.engine>5.10.0</junit.jupiter.engine>
+    <lombok.version>1.18.24</lombok.version>
+    <maven.compiler.plugin>3.10.1</maven.compiler.plugin>
+    <maven.compiler.source>8</maven.compiler.source>
+    <maven.compiler.target>8</maven.compiler.target>
+    <maven.gpg.plugin>1.5</maven.gpg.plugin>
+    <maven.javadoc.plugin>3.4.1</maven.javadoc.plugin>
+    <maven.source.plugin>2.2.1</maven.source.plugin>
+    <nexus.staging.plugin>1.6.7</nexus.staging.plugin>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <slf4j.version>1.6.1</slf4j.version>
+    <surefire.plugin.version>3.1.2</surefire.plugin.version>
+    <tyrus.client.version>1.17</tyrus.client.version>
+  </properties>
 
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>${nexus.staging.plugin}</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <serverId>central</serverId>
-                    <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                </configuration>
-            </plugin>
+  <scm>
+    <connection>scm:git:git://github.com/h6x0r/tonapi4j.git</connection>
+    <developerConnection>scm:git:git@github.com:h6x0r/tonapi4j.git</developerConnection>
+    <tag>tonapi4j-1.0.3</tag>
+    <url>https://github.com/h6x0r/tonapi4j/tree/master</url>
+  </scm>
 
-        </plugins>
-    </build>
+  <url>https://github.com/h6x0r/tonapi4j</url>
 
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
+  <version>1.0.4-SNAPSHOT</version>
 
 </project>

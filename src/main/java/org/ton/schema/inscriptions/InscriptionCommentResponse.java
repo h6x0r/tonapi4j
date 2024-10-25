@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class InscriptionCommentResponse {
-    private String comment;
-    private String destination;
+
+  private String comment;
+  private String destination;
 }

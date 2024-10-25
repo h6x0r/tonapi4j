@@ -10,9 +10,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AddressForm {
-    private String rawForm;
-    private AddressFormB64 bounceable;
-    private AddressFormB64 nonBounceable;
-    private String givenType;
-    private Boolean testOnly;
+
+  private String rawForm;
+  private AddressFormB64 bounceable;
+  private AddressFormB64 nonBounceable;
+  private String givenType;
+  private Boolean testOnly;
 }

@@ -12,7 +12,8 @@ import org.ton.schema.jettons.JettonPreview;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ValueFlowJettonsInner {
-    private AccountAddress account;
-    private JettonPreview jetton;
-    private Long quantity;
+
+  private AccountAddress account;
+  private JettonPreview jetton;
+  private Long quantity;
 }

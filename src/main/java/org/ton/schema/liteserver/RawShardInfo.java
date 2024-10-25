@@ -10,8 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RawShardInfo {
-    private BlockRaw id;
-    private BlockRaw shardblk;
-    private String shardProof;
-    private String shardDescr;
+
+  private BlockRaw id;
+  private BlockRaw shardblk;
+  private String shardProof;
+  private String shardDescr;
 }

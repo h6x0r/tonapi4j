@@ -12,8 +12,9 @@ import org.ton.schema.rates.TokenRates;
 @NoArgsConstructor
 @AllArgsConstructor
 public class JettonBalance {
-    private String balance;
-    private TokenRates price;
-    private AccountAddress walletAddress;
-    private JettonPreview jetton;
+
+  private String balance;
+  private TokenRates price;
+  private AccountAddress walletAddress;
+  private JettonPreview jetton;
 }

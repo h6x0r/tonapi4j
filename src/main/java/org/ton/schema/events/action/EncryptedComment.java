@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EncryptedComment {
-    private String encryptionType;
-    private String cipherText;
+
+  private String encryptionType;
+  private String cipherText;
 }

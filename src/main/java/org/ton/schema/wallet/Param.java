@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Param {
-    private String address;
-    private Long balance;
+
+  private String address;
+  private Long balance;
 }

@@ -23,7 +23,7 @@ For creating wallets, transferring TON, Jetton, NFTs, and other operations, reco
 <dependency>
   <groupId>io.github.h6x0r</groupId>
   <artifactId>tonapi4j</artifactId>
-  <version>1.0.3</version>
+  <version>1.0.4</version>
 </dependency>
 ```
 
@@ -86,7 +86,7 @@ with the terms of the license.
 
 [![Star History Chart](https://api.star-history.com/svg?repos=h6x0r/tonapi4j&type=Date)](https://star-history.com/#h6x0r/tonapi4j&Date)
 
-[maven-central-svg]: https://img.shields.io/maven-central/v/io.github.h6x0r/tonapi4j?color=green
+[maven-central-svg]: https://img.shields.io/maven-central/v/io.github.h6x0r/tonapi4j?color=red
 
 [maven-central]: https://mvnrepository.com/artifact/io.github.h6x0r/tonapi4j
 

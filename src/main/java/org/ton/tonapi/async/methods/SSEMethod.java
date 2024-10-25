@@ -33,13 +33,16 @@ public class SSEMethod extends AsyncTonapiClientBase {
             List<String> operations) throws TONAPIError {
         String method = "v2/sse/accounts/transactions";
         Map<String, Object> params = new HashMap<>();
-        params.put("accounts", String.join(",", accounts));
+
+        if (accounts != null && !accounts.isEmpty()) {
+            params.put("accounts", String.join(",", accounts));
+        }
+
         if (operations != null && !operations.isEmpty()) {
             params.put("operations", String.join(",", operations));
         }
 
-        this.subscribe(method, params, new TypeReference<TransactionEventData>() {
-        }, handler);
+        this.subscribe(method, params, new TypeReference<TransactionEventData>() {}, handler);
     }
 
     /**
@@ -54,10 +57,12 @@ public class SSEMethod extends AsyncTonapiClientBase {
             List<String> accounts) throws TONAPIError {
         String method = "v2/sse/accounts/traces";
         Map<String, Object> params = new HashMap<>();
-        params.put("accounts", String.join(",", accounts));
 
-        this.subscribe(method, params, new TypeReference<TraceEventData>() {
-        }, handler);
+        if (accounts != null && !accounts.isEmpty()) {
+            params.put("accounts", String.join(",", accounts));
+        }
+
+        this.subscribe(method, params, new TypeReference<TraceEventData>() {}, handler);
     }
 
     /**
@@ -72,10 +77,12 @@ public class SSEMethod extends AsyncTonapiClientBase {
             List<String> accounts) throws TONAPIError {
         String method = "v2/sse/mempool";
         Map<String, Object> params = new HashMap<>();
-        params.put("accounts", String.join(",", accounts));
 
-        this.subscribe(method, params, new TypeReference<MempoolEventData>() {
-        }, handler);
+        if (accounts != null && !accounts.isEmpty()) {
+            params.put("accounts", String.join(",", accounts));
+        }
+
+        this.subscribe(method, params, new TypeReference<MempoolEventData>() {}, handler);
     }
 
     /**
@@ -90,11 +97,11 @@ public class SSEMethod extends AsyncTonapiClientBase {
             Long workchain) throws TONAPIError {
         String method = "v2/sse/blocks";
         Map<String, Object> params = new HashMap<>();
+
         if (workchain != null) {
             params.put("workchain", workchain);
         }
 
-        this.subscribe(method, params, new TypeReference<BlockEventData>() {
-        }, handler);
+        this.subscribe(method, params, new TypeReference<BlockEventData>() {}, handler);
     }
 }

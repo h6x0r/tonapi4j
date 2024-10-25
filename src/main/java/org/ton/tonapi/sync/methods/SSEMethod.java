@@ -20,7 +20,7 @@ public class SSEMethod extends TonapiClientBase {
     }
 
     /**
-     * Subscribes to transactions SSE events for the specified accounts.
+     * Subscribes to transactions SSE events for the specified accounts and operations.
      *
      * @param handler    A consumer function to handle the TransactionEventData
      * @param accounts   A list of account IDs. Use "ALL" to stream transactions for all accounts.
@@ -33,13 +33,16 @@ public class SSEMethod extends TonapiClientBase {
             List<String> operations) throws TONAPIError {
         String method = "v2/sse/accounts/transactions";
         Map<String, Object> params = new HashMap<>();
-        params.put("accounts", String.join(",", accounts));
+
+        if (accounts != null && !accounts.isEmpty()) {
+            params.put("accounts", String.join(",", accounts));
+        }
+
         if (operations != null && !operations.isEmpty()) {
             params.put("operations", String.join(",", operations));
         }
 
-        this.subscribe(method, params, new TypeReference<TransactionEventData>() {
-        }, handler);
+        this.subscribe(method, params, new TypeReference<TransactionEventData>() {}, handler);
     }
 
     /**
@@ -54,10 +57,12 @@ public class SSEMethod extends TonapiClientBase {
             List<String> accounts) throws TONAPIError {
         String method = "v2/sse/accounts/traces";
         Map<String, Object> params = new HashMap<>();
-        params.put("accounts", String.join(",", accounts));
 
-        this.subscribe(method, params, new TypeReference<TraceEventData>() {
-        }, handler);
+        if (accounts != null && !accounts.isEmpty()) {
+            params.put("accounts", String.join(",", accounts));
+        }
+
+        this.subscribe(method, params, new TypeReference<TraceEventData>() {}, handler);
     }
 
     /**
@@ -72,14 +77,16 @@ public class SSEMethod extends TonapiClientBase {
             List<String> accounts) throws TONAPIError {
         String method = "v2/sse/mempool";
         Map<String, Object> params = new HashMap<>();
-        params.put("accounts", String.join(",", accounts));
 
-        this.subscribe(method, params, new TypeReference<MempoolEventData>() {
-        }, handler);
+        if (accounts != null && !accounts.isEmpty()) {
+            params.put("accounts", String.join(",", accounts));
+        }
+
+        this.subscribe(method, params, new TypeReference<MempoolEventData>() {}, handler);
     }
 
     /**
-     * Subscribes to blocks SSE events for the specified workchains.
+     * Subscribes to blocks SSE events for the specified workchain.
      *
      * @param handler   A consumer function to handle the BlockEventData
      * @param workchain The ID of the workchain to subscribe to. If null, subscribes to all workchains.
@@ -90,11 +97,11 @@ public class SSEMethod extends TonapiClientBase {
             Long workchain) throws TONAPIError {
         String method = "v2/sse/blocks";
         Map<String, Object> params = new HashMap<>();
+
         if (workchain != null) {
             params.put("workchain", workchain);
         }
 
-        this.subscribe(method, params, new TypeReference<BlockEventData>() {
-        }, handler);
+        this.subscribe(method, params, new TypeReference<BlockEventData>() {}, handler);
     }
 }

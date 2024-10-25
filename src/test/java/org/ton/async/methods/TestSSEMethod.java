@@ -51,7 +51,6 @@ public class TestSSEMethod extends AsyncTonapiTestBase {
     }
 
     @Test
-    @Disabled
     public void testSubscribeToMempool() throws Exception {
         CountDownLatch latch = new CountDownLatch(1);
 

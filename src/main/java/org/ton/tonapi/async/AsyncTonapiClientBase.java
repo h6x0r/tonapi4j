@@ -75,8 +75,8 @@ public class AsyncTonapiClientBase {
         }
 
         this.httpClient = new OkHttpClient.Builder()
-                .connectTimeout(timeout.longValue(), TimeUnit.SECONDS)
-                .readTimeout(timeout.longValue(), TimeUnit.SECONDS)
+                .connectTimeout(this.timeout.longValue(), TimeUnit.SECONDS)
+                .readTimeout(this.timeout.longValue(), TimeUnit.SECONDS)
                 .build();
     }
 

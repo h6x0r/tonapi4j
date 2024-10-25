@@ -5,25 +5,16 @@ import lombok.extern.slf4j.Slf4j;
 import org.ton.exception.TONAPIError;
 import org.ton.schema.events.TraceEventData;
 import org.ton.schema.events.TransactionEventData;
+import org.ton.schema.events.block.BlockEventData;
 import org.ton.schema.events.mempool.MempoolEventData;
 import org.ton.tonapi.async.AsyncTonapiClientBase;
 
-import javax.websocket.ClientEndpoint;
-import javax.websocket.CloseReason;
-import javax.websocket.ContainerProvider;
-import javax.websocket.DeploymentException;
-import javax.websocket.OnClose;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
-import javax.websocket.Session;
-import javax.websocket.WebSocketContainer;
+import javax.websocket.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.*;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiConsumer;
 
@@ -31,10 +22,17 @@ import java.util.function.BiConsumer;
 @ClientEndpoint
 public class WebSocketMethod extends AsyncTonapiClientBase {
 
+    // Map to store handlers keyed by notification method name
     private final Map<String, BiConsumer<Map<String, Object>, Object[]>> handlers = new ConcurrentHashMap<>();
+    private final Map<String, SubscriptionInfo> subscriptions = new ConcurrentHashMap<>();
+
     private final AtomicInteger requestIdCounter = new AtomicInteger(1);
     private Session userSession = null;
     private boolean isConnected = false;
+
+    private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+    private int reconnectAttempts = 0;
+    private final int maxReconnectAttempts = 5;
 
     public WebSocketMethod(AsyncTonapiClientBase client) {
         super(client);
@@ -58,16 +56,18 @@ public class WebSocketMethod extends AsyncTonapiClientBase {
     /**
      * Establishes a WebSocket connection and subscribes to a specific method.
      *
-     * @param method  The subscription method.
-     * @param params  The parameters for the subscription.
-     * @param handler The handler function to process incoming messages.
-     * @param args    Additional arguments to pass to the handler.
+     * @param method          The subscription method.
+     * @param paramsList      The parameters for the subscription.
+     * @param handler         The handler function to process incoming messages.
+     * @param subscriptionKey A unique key to identify the subscription.
+     * @param args            Additional arguments to pass to the handler.
      * @throws TONAPIError if the connection or subscription fails.
      */
     private synchronized void subscribeWebSocket(
             String method,
-            List<String> params,
+            List<String> paramsList,
             BiConsumer<Map<String, Object>, Object[]> handler,
+            String subscriptionKey,
             Object... args) throws TONAPIError {
 
         if (userSession == null || !userSession.isOpen()) {
@@ -76,20 +76,47 @@ public class WebSocketMethod extends AsyncTonapiClientBase {
 
         int requestId = requestIdCounter.getAndIncrement();
 
-        Map<String, Object> subscriptionMessage = new ConcurrentHashMap<>();
+        Map<String, Object> subscriptionMessage = new HashMap<>();
         subscriptionMessage.put("id", requestId);
         subscriptionMessage.put("jsonrpc", "2.0");
         subscriptionMessage.put("method", method);
-        subscriptionMessage.put("params", params);
+        subscriptionMessage.put("params", paramsList);
 
-        handlers.put(method, handler);
+        // Store subscription info for resubscription if needed
+        subscriptions.put(subscriptionKey, new SubscriptionInfo(method, paramsList, handler, args));
+
+        // Store the handler with the expected notification method name
+        String notificationMethodName = getNotificationMethodName(method);
+        handlers.put(notificationMethodName, handler);
 
         try {
             String message = objectMapper.writeValueAsString(subscriptionMessage);
+            log.info("Sending subscription message: {}", message);
             userSession.getAsyncRemote().sendText(message);
             log.info("Subscribed to method: {} with id: {}", method, requestId);
         } catch (IOException e) {
             throw new TONAPIError("Failed to send subscription message: " + e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Maps the subscription method to the expected notification method name.
+     *
+     * @param method The subscription method name.
+     * @return The corresponding notification method name.
+     */
+    private String getNotificationMethodName(String method) {
+        switch (method) {
+            case "subscribe_account":
+                return "account_transaction";
+            case "subscribe_trace":
+                return "trace";
+            case "subscribe_mempool":
+                return "mempool_message";
+            case "subscribe_block":
+                return "block";
+            default:
+                return method;
         }
     }
 
@@ -102,6 +129,7 @@ public class WebSocketMethod extends AsyncTonapiClientBase {
     public void onOpen(Session userSession) {
         this.userSession = userSession;
         this.isConnected = true;
+        this.reconnectAttempts = 0;
         log.info("WebSocket connection established");
     }
 
@@ -112,9 +140,9 @@ public class WebSocketMethod extends AsyncTonapiClientBase {
      */
     @OnMessage
     public void onMessage(String message) {
+        log.info("Received message: {}", message);
         try {
-            Map<String, Object> data = objectMapper.readValue(message, new TypeReference<Map<String, Object>>() {
-            });
+            Map<String, Object> data = objectMapper.readValue(message, new TypeReference<Map<String, Object>>() {});
             String jsonrpc = (String) data.get("jsonrpc");
             if (!"2.0".equals(jsonrpc)) {
                 log.warn("Received message with unexpected jsonrpc version: {}", jsonrpc);
@@ -122,17 +150,26 @@ public class WebSocketMethod extends AsyncTonapiClientBase {
             }
 
             if (data.containsKey("id")) {
+                // Handle subscription response
                 Integer id = (Integer) data.get("id");
-                String result = (String) data.get("result");
-                log.info("Received subscription response for id {}: {}", id, result);
-            } else {
+
+                if (data.containsKey("result")) {
+                    // Successful subscription
+                    String result = (String) data.get("result");
+                    log.info("Subscription result: {}", result);
+                    // Remove temporary handler if stored
+                    // handlers.remove(requestIdStr);
+                } else if (data.containsKey("error")) {
+                    // Handle error response
+                    Map<String, Object> error = (Map<String, Object>) data.get("error");
+                    Integer errorCode = (Integer) error.get("code");
+                    String errorMessage = (String) error.get("message");
+                    log.error("Error in subscription response - Code: {}, Message: {}", errorCode, errorMessage);
+                }
+            } else if (data.containsKey("method")) {
+                // Handle incoming notifications
                 String method = (String) data.get("method");
                 Map<String, Object> params = (Map<String, Object>) data.get("params");
-
-                if (method == null || params == null) {
-                    log.warn("Received message without method or params: {}", message);
-                    return;
-                }
 
                 BiConsumer<Map<String, Object>, Object[]> handler = handlers.get(method);
 
@@ -141,6 +178,12 @@ public class WebSocketMethod extends AsyncTonapiClientBase {
                 } else {
                     log.warn("No handler found for method: {}", method);
                 }
+            } else if (data.containsKey("error")) {
+                // Handle error notification
+                Map<String, Object> error = (Map<String, Object>) data.get("error");
+                Integer errorCode = (Integer) error.get("code");
+                String errorMessage = (String) error.get("message");
+                log.error("Received error from server - Code: {}, Message: {}", errorCode, errorMessage);
             }
         } catch (IOException | ClassCastException e) {
             log.error("Failed to process incoming WebSocket message: {}", e.getMessage());
@@ -158,25 +201,97 @@ public class WebSocketMethod extends AsyncTonapiClientBase {
         this.userSession = null;
         this.isConnected = false;
         log.info("WebSocket connection closed: {}", reason.getReasonPhrase());
+        attemptReconnection();
     }
 
     /**
-     * Subscribes to transactions WebSocket events for the specified list of account or account with the specified instructions.
+     * Attempts to reconnect to the WebSocket server with exponential backoff.
+     */
+    private void attemptReconnection() {
+        if (reconnectAttempts < maxReconnectAttempts) {
+            reconnectAttempts++;
+            int delay = reconnectAttempts * 2; // Exponential backoff
+            log.info("Attempting to reconnect in {} seconds...", delay);
+            scheduler.schedule(() -> {
+                try {
+                    initializeWebSocket();
+                    // Resubscribe to existing subscriptions
+                    resubscribeAll();
+                } catch (Exception e) {
+                    log.error("Reconnection attempt failed: {}", e.getMessage());
+                    attemptReconnection();
+                }
+            }, delay, TimeUnit.SECONDS);
+        } else {
+            log.error("Max reconnection attempts reached. Giving up.");
+        }
+    }
+
+    /**
+     * Resubscribes to all existing subscriptions after reconnection.
+     */
+    private void resubscribeAll() {
+        for (SubscriptionInfo subscriptionInfo : subscriptions.values()) {
+            try {
+                subscribeWebSocket(
+                        subscriptionInfo.method,
+                        subscriptionInfo.paramsList,
+                        subscriptionInfo.handler,
+                        subscriptionInfo.subscriptionKey,
+                        subscriptionInfo.args
+                );
+            } catch (TONAPIError e) {
+                log.error("Failed to resubscribe to method {}: {}", subscriptionInfo.method, e.getMessage());
+            }
+        }
+    }
+
+    /**
+     * Subscribes to new blocks over WebSocket.
      *
-     * @param accounts A list of (account / account;operations) addresses to subscribe to.
+     * @param workchain The workchain ID to subscribe to. Can be null to subscribe to all workchains.
+     * @param handler   A handler function to process BlockEventData.
+     * @param args      Additional arguments to pass to the handler.
+     * @throws TONAPIError if the connection or subscription fails.
+     */
+    public void subscribeToBlocks(
+            Long workchain,
+            BiConsumer<BlockEventData, Object[]> handler,
+            Object... args) throws TONAPIError {
+        String method = "subscribe_block";
+        List<String> paramsList = new ArrayList<>();
+        if (workchain != null) {
+            paramsList.add("workchain=" + workchain);
+        }
+
+        String subscriptionKey = method + (workchain != null ? "_" + workchain : "");
+
+        subscribeWebSocket(method, paramsList, (params, handlerArgs) -> {
+            try {
+                BlockEventData event = objectMapper.convertValue(params, BlockEventData.class);
+                handler.accept(event, handlerArgs);
+            } catch (IllegalArgumentException e) {
+                log.error("Failed to parse BlockEventData: {}", e.getMessage());
+            }
+        }, subscriptionKey, args);
+    }
+
+    /**
+     * Subscribes to transactions over WebSocket.
+     *
+     * @param accounts List of accounts and optional operations.
      * @param handler  A handler function to process TransactionEventData.
      * @param args     Additional arguments to pass to the handler.
      * @throws TONAPIError if the connection or subscription fails.
-     * @implNote "accounts":[
-     * "-1:5555555555555555555555555555555555555555555555555555555555555555",
-     * "-1:3333333333333333333333333333333333333333333333333333333333333333;operations=JettonTransfer,0x0524c7ae"
-     * ]
      */
     public void subscribeToTransactions(
             List<String> accounts,
             BiConsumer<TransactionEventData, Object[]> handler,
             Object... args) throws TONAPIError {
         String method = "subscribe_account";
+
+        String subscriptionKey = method + "_" + String.join(",", accounts);
+
         subscribeWebSocket(method, accounts, (params, handlerArgs) -> {
             try {
                 TransactionEventData event = objectMapper.convertValue(params, TransactionEventData.class);
@@ -184,13 +299,13 @@ public class WebSocketMethod extends AsyncTonapiClientBase {
             } catch (IllegalArgumentException e) {
                 log.error("Failed to parse TransactionEventData: {}", e.getMessage());
             }
-        }, args);
+        }, subscriptionKey, args);
     }
 
     /**
-     * Subscribes to traces WebSocket events for the specified accounts.
+     * Subscribes to traces over WebSocket.
      *
-     * @param accounts A list of account addresses to subscribe to.
+     * @param accounts List of account IDs to subscribe to.
      * @param handler  A handler function to process TraceEventData.
      * @param args     Additional arguments to pass to the handler.
      * @throws TONAPIError if the connection or subscription fails.
@@ -200,6 +315,9 @@ public class WebSocketMethod extends AsyncTonapiClientBase {
             BiConsumer<TraceEventData, Object[]> handler,
             Object... args) throws TONAPIError {
         String method = "subscribe_trace";
+
+        String subscriptionKey = method + "_" + String.join(",", accounts);
+
         subscribeWebSocket(method, accounts, (params, handlerArgs) -> {
             try {
                 TraceEventData event = objectMapper.convertValue(params, TraceEventData.class);
@@ -207,13 +325,13 @@ public class WebSocketMethod extends AsyncTonapiClientBase {
             } catch (IllegalArgumentException e) {
                 log.error("Failed to parse TraceEventData: {}", e.getMessage());
             }
-        }, args);
+        }, subscriptionKey, args);
     }
 
     /**
-     * Subscribes to mempool WebSocket events for the specified accounts.
+     * Subscribes to mempool messages over WebSocket.
      *
-     * @param accounts A list of account addresses to subscribe to.
+     * @param accounts List of accounts to filter messages. Can be empty.
      * @param handler  A handler function to process MempoolEventData.
      * @param args     Additional arguments to pass to the handler.
      * @throws TONAPIError if the connection or subscription fails.
@@ -223,27 +341,22 @@ public class WebSocketMethod extends AsyncTonapiClientBase {
             BiConsumer<MempoolEventData, Object[]> handler,
             Object... args) throws TONAPIError {
         String method = "subscribe_mempool";
+        List<String> paramsList = new ArrayList<>();
+
         if (accounts != null && !accounts.isEmpty()) {
-            String accountsParam = String.join(",", accounts);
-            String formattedParam = "accounts=" + accountsParam;
-            subscribeWebSocket(method, Collections.singletonList(formattedParam), (params, handlerArgs) -> {
-                try {
-                    MempoolEventData event = objectMapper.convertValue(params, MempoolEventData.class);
-                    handler.accept(event, handlerArgs);
-                } catch (IllegalArgumentException e) {
-                    log.error("Failed to parse MempoolEventData: {}", e.getMessage());
-                }
-            }, args);
-        } else {
-            subscribeWebSocket(method, Collections.emptyList(), (params, handlerArgs) -> {
-                try {
-                    MempoolEventData event = objectMapper.convertValue(params, MempoolEventData.class);
-                    handler.accept(event, handlerArgs);
-                } catch (IllegalArgumentException e) {
-                    log.error("Failed to parse MempoolEventData: {}", e.getMessage());
-                }
-            }, args);
+            paramsList.add("accounts=" + String.join(",", accounts));
         }
+
+        String subscriptionKey = method + (accounts != null ? "_" + String.join(",", accounts) : "");
+
+        subscribeWebSocket(method, paramsList, (params, handlerArgs) -> {
+            try {
+                MempoolEventData event = objectMapper.convertValue(params, MempoolEventData.class);
+                handler.accept(event, handlerArgs);
+            } catch (IllegalArgumentException e) {
+                log.error("Failed to parse MempoolEventData: {}", e.getMessage());
+            }
+        }, subscriptionKey, args);
     }
 
     /**
@@ -252,11 +365,32 @@ public class WebSocketMethod extends AsyncTonapiClientBase {
     public synchronized void close() {
         if (userSession != null && userSession.isOpen()) {
             try {
-                userSession.close(new CloseReason(CloseReason.CloseCodes.NORMAL_CLOSURE, "Test completed"));
+                userSession.close(new CloseReason(CloseReason.CloseCodes.NORMAL_CLOSURE, "Client initiated closure"));
                 log.info("WebSocket connection closed gracefully");
             } catch (IOException e) {
                 log.error("Failed to close WebSocket connection: {}", e.getMessage());
             }
+        }
+    }
+
+    /**
+     * Inner class to store subscription information for resubscription.
+     */
+    private static class SubscriptionInfo {
+        String method;
+        List<String> paramsList;
+        BiConsumer<Map<String, Object>, Object[]> handler;
+        Object[] args;
+        String subscriptionKey;
+
+        SubscriptionInfo(String method, List<String> paramsList,
+                         BiConsumer<Map<String, Object>, Object[]> handler,
+                         Object[] args) {
+            this.method = method;
+            this.paramsList = paramsList;
+            this.handler = handler;
+            this.args = args;
+            this.subscriptionKey = method + "_" + paramsList.toString();
         }
     }
 }

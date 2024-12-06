@@ -36,25 +36,25 @@ import org.ton.tonapi.sync.Tonapi;
 
 // Specify your API_KEY
 String API_KEY = "YOUR_TON_API_KEY";
-    // Specify the account ID (wallet_address)
-    String ACCOUNT_ID = "UQB8ANV_ynITQr1qHXADHDKYUAQ9VFcCRDZB7h4aPuPKuFtm";
+// Specify the account ID (wallet_address)
+String ACCOUNT_ID = "UQB8ANV_ynITQr1qHXADHDKYUAQ9VFcCRDZB7h4aPuPKuFtm";
 
 // Asynchronous
 
-    // Create a new AsyncTonapi client with the provided API key, testnet and maxRetries count
-    AsyncTonapi asyncTonapi = new AsyncTonapi(API_KEY, false, 10);
+// Create a new AsyncTonapi client with the provided API key, testnet and maxRetries count
+AsyncTonapi asyncTonapi = new AsyncTonapi(API_KEY, false, 10);
 
-    // Retrieve account information asynchronously
-    CompletableFuture<Account> future = asyncTonapi.getAccounts().getInfo(ACCOUNT_ID);
-    Account response = future.get();
+// Retrieve account information asynchronously
+CompletableFuture<Account> future = asyncTonapi.getAccounts().getInfo(ACCOUNT_ID);
+Account response = future.get();
 
 // Synchronous
 
-    // Create a new Tonapi client with the provided API key, testnet and maxRetries count
-    Tonapi tonapi = new Tonapi(API_KEY, false, 10);
+// Create a new Tonapi client with the provided API key, testnet and maxRetries count
+Tonapi tonapi = new Tonapi(API_KEY, false, 10);
 
-    // Retrieve account information synchronously
-    Account response = tonapi.getAccounts().getInfo(ACCOUNT_ID);
+// Retrieve account information synchronously
+Account response = tonapi.getAccounts().getInfo(ACCOUNT_ID);
 
 
 ```

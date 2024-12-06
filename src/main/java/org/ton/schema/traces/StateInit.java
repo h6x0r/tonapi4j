@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StateInit {
+
   private List<String> interfaces;
   private String boc;
 }

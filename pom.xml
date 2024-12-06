@@ -6,7 +6,7 @@
 
     <groupId>io.github.h6x0r</groupId>
     <artifactId>tonapi4j</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -49,7 +49,7 @@
         <connection>scm:git:git://github.com/h6x0r/tonapi4j.git</connection>
         <developerConnection>scm:git:git@github.com:h6x0r/tonapi4j.git</developerConnection>
         <url>https://github.com/h6x0r/tonapi4j/tree/master</url>
-        <tag>tonapi4j-1.0.0</tag>
+        <tag>tonapi4j-1.0.1</tag>
     </scm>
 
     <dependencies>

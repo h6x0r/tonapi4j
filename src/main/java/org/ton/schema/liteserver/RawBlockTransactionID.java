@@ -10,8 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RawBlockTransactionID {
-    private Integer mode;
-    private String account;
-    private Long lt;
-    private String hash;
+
+  private Integer mode;
+  private String account;
+  private Long lt;
+  private String hash;
 }

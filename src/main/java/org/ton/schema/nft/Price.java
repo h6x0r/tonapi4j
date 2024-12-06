@@ -1,5 +1,6 @@
 package org.ton.schema.nft;
 
+import java.math.BigInteger;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Price {
-    private String value;
-    private String tokenName;
+
+  private BigInteger value;
+  private String tokenName;
 }

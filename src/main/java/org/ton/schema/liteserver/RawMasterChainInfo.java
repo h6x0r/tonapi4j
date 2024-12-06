@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RawMasterChainInfo {
-    private BlockRaw last;
-    private String stateRootHash;
-    private InitStateRaw init;
+
+  private BlockRaw last;
+  private String stateRootHash;
+  private InitStateRaw init;
 }

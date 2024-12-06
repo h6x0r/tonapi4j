@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AccountInfoByStateInit {
-    private String publicKey;
-    private String address;
+
+  private String publicKey;
+  private String address;
 }

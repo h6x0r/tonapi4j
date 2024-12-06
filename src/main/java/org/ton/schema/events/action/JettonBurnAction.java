@@ -1,5 +1,6 @@
 package org.ton.schema.events.action;
 
+import java.math.BigInteger;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,8 +13,9 @@ import org.ton.schema.jettons.JettonPreview;
 @NoArgsConstructor
 @AllArgsConstructor
 public class JettonBurnAction {
-    private AccountAddress sender;
-    private String sendersWallet;
-    private String amount;
-    private JettonPreview jetton;
+
+  private AccountAddress sender;
+  private String sendersWallet;
+  private BigInteger amount;
+  private JettonPreview jetton;
 }

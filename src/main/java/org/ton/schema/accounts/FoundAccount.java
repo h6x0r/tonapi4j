@@ -11,7 +11,8 @@ import org.ton.schema.Address;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FoundAccount {
-    private Address address;
-    private String name;
-    private String preview;
+
+  private Address address;
+  private String name;
+  private String preview;
 }

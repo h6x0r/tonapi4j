@@ -10,9 +10,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AccountStakingInfo {
-    private String pool;
-    private Long amount;
-    private Long pendingDeposit;
-    private Long pendingWithdraw;
-    private Long readyWithdraw;
+
+  private String pool;
+  private Long amount;
+  private Long pendingDeposit;
+  private Long pendingWithdraw;
+  private Long readyWithdraw;
 }

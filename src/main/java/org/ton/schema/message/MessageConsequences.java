@@ -13,7 +13,8 @@ import org.ton.schema.traces.Trace;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MessageConsequences {
-    private Trace trace;
-    private Risk risk;
-    private AccountEvent event;
+
+  private Trace trace;
+  private Risk risk;
+  private AccountEvent event;
 }

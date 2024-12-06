@@ -11,7 +11,8 @@ import org.ton.schema.accounts.AccountAddress;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UnSubscriptionAction {
-    private AccountAddress subscriber;
-    private String subscription;
-    private AccountAddress beneficiary;
+
+  private AccountAddress subscriber;
+  private String subscription;
+  private AccountAddress beneficiary;
 }

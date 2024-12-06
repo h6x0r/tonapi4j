@@ -1,15 +1,12 @@
 package org.ton.async.methods;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.util.concurrent.CompletableFuture;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.ton.async.AsyncTonapiTestBase;
 import org.ton.schema.traces.Trace;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.CompletableFuture;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class TestTraceMethod extends AsyncTonapiTestBase {
 

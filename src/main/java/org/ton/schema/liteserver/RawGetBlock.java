@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RawGetBlock {
-    private BlockRaw id;
-    private String data;
+
+  private BlockRaw id;
+  private String data;
 }

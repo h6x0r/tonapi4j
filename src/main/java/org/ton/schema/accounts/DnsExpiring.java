@@ -1,16 +1,16 @@
 package org.ton.schema.accounts;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class DnsExpiring {
-    private List<DnsExpiringItemsInner> items;
+
+  private List<DnsExpiringItemsInner> items;
 }

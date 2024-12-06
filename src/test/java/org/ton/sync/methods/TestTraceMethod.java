@@ -1,14 +1,11 @@
 package org.ton.sync.methods;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.ton.schema.traces.Trace;
 import org.ton.sync.TonapiTestBase;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class TestTraceMethod extends TonapiTestBase {
 

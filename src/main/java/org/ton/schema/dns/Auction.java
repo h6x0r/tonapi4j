@@ -10,9 +10,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Auction {
-    private String domain;
-    private String owner;
-    private Long price;
-    private Long bids;
-    private Long date;
+
+  private String domain;
+  private String owner;
+  private Long price;
+  private Long bids;
+  private Long date;
 }

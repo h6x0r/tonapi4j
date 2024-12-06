@@ -11,7 +11,8 @@ import org.ton.schema.nft.NftItem;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DomainInfo {
-    private String name;
-    private Integer expiringAt;
-    private NftItem item;
+
+  private String name;
+  private Integer expiringAt;
+  private NftItem item;
 }

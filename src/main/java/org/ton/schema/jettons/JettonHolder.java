@@ -12,7 +12,8 @@ import org.ton.schema.accounts.AccountAddress;
 @NoArgsConstructor
 @AllArgsConstructor
 public class JettonHolder {
-    private Address address;
-    private AccountAddress owner;
-    private String balance;
+
+  private Address address;
+  private AccountAddress owner;
+  private String balance;
 }

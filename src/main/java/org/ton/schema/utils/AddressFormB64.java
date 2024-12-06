@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AddressFormB64 {
-    private String b64;
-    private String b64url;
+
+  private String b64;
+  private String b64url;
 }

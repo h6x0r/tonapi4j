@@ -11,5 +11,6 @@ import org.ton.schema.Balance;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BalanceChange {
-    private Balance balanceChange;
+
+  private Balance balanceChange;
 }

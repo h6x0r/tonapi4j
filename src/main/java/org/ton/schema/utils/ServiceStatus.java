@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ServiceStatus {
-    private Boolean restOnline;
-    private Long indexingLatency;
-    private Boolean lastKnownMasterchainSeqno;
+
+  private Boolean restOnline;
+  private Long indexingLatency;
+  private Boolean lastKnownMasterchainSeqno;
 }

@@ -11,7 +11,8 @@ import org.ton.schema.accounts.AccountAddress;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WithdrawStakeRequestAction {
-    private Long amount;
-    private AccountAddress staker;
-    private AccountAddress pool;
+
+  private Long amount;
+  private AccountAddress staker;
+  private AccountAddress pool;
 }

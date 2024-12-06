@@ -10,14 +10,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BlockValueFlow {
-    private ValueFlowItem fromPrevBlk;
-    private ValueFlowItem toNextBlk;
-    private ValueFlowItem imported;
-    private ValueFlowItem exported;
-    private ValueFlowItem feesCollected;
-    private ValueFlowItem burned;
-    private ValueFlowItem feesImported;
-    private ValueFlowItem recovered;
-    private ValueFlowItem created;
-    private ValueFlowItem minted;
+
+  private ValueFlowItem fromPrevBlk;
+  private ValueFlowItem toNextBlk;
+  private ValueFlowItem imported;
+  private ValueFlowItem exported;
+  private ValueFlowItem feesCollected;
+  private ValueFlowItem burned;
+  private ValueFlowItem feesImported;
+  private ValueFlowItem recovered;
+  private ValueFlowItem created;
+  private ValueFlowItem minted;
 }

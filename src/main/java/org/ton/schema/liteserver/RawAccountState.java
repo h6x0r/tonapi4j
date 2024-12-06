@@ -10,9 +10,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RawAccountState {
-    private BlockRaw id;
-    private BlockRaw shardblk;
-    private String shardProof;
-    private String proof;
-    private String state;
+
+  private BlockRaw id;
+  private BlockRaw shardblk;
+  private String shardProof;
+  private String proof;
+  private String state;
 }

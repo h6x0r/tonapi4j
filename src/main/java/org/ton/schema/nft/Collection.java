@@ -11,7 +11,8 @@ import org.ton.schema.Address;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Collection {
-    private Address address;
-    private String name;
-    private String description;
+
+  private Address address;
+  private String name;
+  private String description;
 }

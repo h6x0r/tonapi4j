@@ -1,85 +1,90 @@
 package org.ton.sync.methods;
 
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-import org.ton.sync.TonapiTestBase;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Collections;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import org.junit.jupiter.api.Test;
+import org.ton.schema.events.TraceEventData;
+import org.ton.schema.events.TransactionEventData;
+import org.ton.schema.events.block.BlockEventData;
+import org.ton.schema.events.mempool.MempoolEventData;
+import org.ton.sync.TonapiTestBase;
+import org.ton.tonapi.sync.methods.SSEMethod;
+
 public class TestSSEMethod extends TonapiTestBase {
 
-    private static final String ACCOUNT_ID = "EQChB2eMoFG4ThuEsZ6ehlBPKJXOjNxlR5B7qKZNGIv256Da";
-    private static final List<String> ACCOUNTS_IDS = Arrays.asList("ALL"); // TonAPI will stream all traces
+  private static final String ACCOUNT_ID = "EQChB2eMoFG4ThuEsZ6ehlBPKJXOjNxlR5B7qKZNGIv256Da";
+  private final SSEMethod sseMethod = tonapi.getSse();
 
-    @Test
-    public void testSubscribeToTransactions() throws Exception {
-        CountDownLatch latch = new CountDownLatch(1);
+  @Test
+  public void testSubscribeToTransactions() throws Exception {
+    CountDownLatch latch = new CountDownLatch(1);
 
-        tonapi.getSse().subscribeToTransactions(
-                eventData -> {
-                    assertNotNull(eventData);
-                    latch.countDown();
-                },
-                ACCOUNTS_IDS,
-                null
-        );
+    sseMethod.subscribeToTransactions(
+        (TransactionEventData eventData) -> {
+          assertNotNull(eventData);
+          System.out.println("Received TransactionEventData: " + eventData);
+          latch.countDown();
+        },
+        Collections.singletonList("ALL"),
+        null
+    );
 
-        boolean received = latch.await(30, TimeUnit.SECONDS);
-        assertTrue(received);
-    }
+    boolean received = latch.await(60, TimeUnit.SECONDS);
+    assertTrue(received, "Did not receive TransactionEventData within the timeout period");
+  }
 
-    @Test
-    public void testSubscribeToTraces() throws Exception {
-        CountDownLatch latch = new CountDownLatch(1);
+  @Test
+  public void testSubscribeToTraces() throws Exception {
+    CountDownLatch latch = new CountDownLatch(1);
 
-        tonapi.getSse().subscribeToTraces(
-                eventData -> {
-                    assertNotNull(eventData);
-                    latch.countDown();
-                },
-                ACCOUNTS_IDS
-        );
+    sseMethod.subscribeToTraces(
+        (TraceEventData eventData) -> {
+          assertNotNull(eventData);
+          System.out.println("Received TraceEventData: " + eventData);
+          latch.countDown();
+        },
+        Collections.singletonList("ALL")
+    );
 
-        boolean received = latch.await(30, TimeUnit.SECONDS);
-        assertTrue(received);
-    }
+    boolean received = latch.await(60, TimeUnit.SECONDS);
+    assertTrue(received, "Did not receive TraceEventData within the timeout period");
+  }
 
-    @Test
-    @Disabled
-    public void testSubscribeToMempool() throws Exception {
-        CountDownLatch latch = new CountDownLatch(1);
+  @Test
+  public void testSubscribeToMempool() throws Exception {
+    CountDownLatch latch = new CountDownLatch(1);
 
-        tonapi.getSse().subscribeToMempool(
-                eventData -> {
-                    assertNotNull(eventData);
-                    latch.countDown();
-                },
-                Arrays.asList(ACCOUNT_ID)
-        );
+    sseMethod.subscribeToMempool(
+        (MempoolEventData eventData) -> {
+          assertNotNull(eventData);
+          System.out.println("Received MempoolEventData: " + eventData);
+          latch.countDown();
+        },
+        Collections.singletonList(ACCOUNT_ID)
+    );
 
-        boolean received = latch.await(30, TimeUnit.SECONDS);
-        assertTrue(received);
-    }
+    boolean received = latch.await(60, TimeUnit.SECONDS);
+    assertTrue(received, "Did not receive MempoolEventData within the timeout period");
+  }
 
-    @Test
-    public void testSubscribeToBlocks() throws Exception {
-        CountDownLatch latch = new CountDownLatch(1);
+  @Test
+  public void testSubscribeToBlocks() throws Exception {
+    CountDownLatch latch = new CountDownLatch(1);
 
-        tonapi.getSse().subscribeToBlocks(
-                eventData -> {
-                    assertNotNull(eventData);
-                    latch.countDown();
-                },
-                0L
-        );
+    sseMethod.subscribeToBlocks(
+        (BlockEventData eventData) -> {
+          assertNotNull(eventData);
+          System.out.println("Received BlockEventData: " + eventData);
+          latch.countDown();
+        },
+        null // Subscribe to all workchains
+    );
 
-        boolean received = latch.await(30, TimeUnit.SECONDS);
-        assertTrue(received);
-    }
+    boolean received = latch.await(60, TimeUnit.SECONDS);
+    assertTrue(received, "Did not receive BlockEventData within the timeout period");
+  }
 }

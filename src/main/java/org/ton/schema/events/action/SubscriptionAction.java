@@ -11,9 +11,10 @@ import org.ton.schema.accounts.AccountAddress;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SubscriptionAction {
-    private AccountAddress subscriber;
-    private String subscription;
-    private AccountAddress beneficiary;
-    private Long amount;
-    private Boolean initial;
+
+  private AccountAddress subscriber;
+  private String subscription;
+  private AccountAddress beneficiary;
+  private Long amount;
+  private Boolean initial;
 }

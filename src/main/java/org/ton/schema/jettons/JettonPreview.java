@@ -11,10 +11,11 @@ import org.ton.schema.Address;
 @NoArgsConstructor
 @AllArgsConstructor
 public class JettonPreview {
-    private Address address;
-    private String name;
-    private String symbol;
-    private Integer decimals;
-    private String image;
-    private JettonVerificationType verification;
+
+  private Address address;
+  private String name;
+  private String symbol;
+  private Integer decimals;
+  private String image;
+  private JettonVerificationType verification;
 }

@@ -11,10 +11,11 @@ import org.ton.schema.accounts.AccountAddress;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SmartContractAction {
-    private AccountAddress executor;
-    private AccountAddress contract;
-    private Long tonAttached;
-    private String operation;
-    private String payload;
-    private Refund refund;
+
+  private AccountAddress executor;
+  private AccountAddress contract;
+  private Long tonAttached;
+  private String operation;
+  private String payload;
+  private Refund refund;
 }

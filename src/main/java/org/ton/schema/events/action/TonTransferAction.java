@@ -11,10 +11,11 @@ import org.ton.schema.accounts.AccountAddress;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TonTransferAction {
-    private AccountAddress sender;
-    private AccountAddress recipient;
-    private Long amount;
-    private String comment;
-    private EncryptedComment encryptedComment;
-    private Refund refund;
+
+  private AccountAddress sender;
+  private AccountAddress recipient;
+  private Long amount;
+  private String comment;
+  private EncryptedComment encryptedComment;
+  private Refund refund;
 }

@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MarketTonRates {
-    private String market;
-    private Double usdPrice;
-    private Long lastDateUpdate;
+
+  private String market;
+  private Double usdPrice;
+  private Long lastDateUpdate;
 }

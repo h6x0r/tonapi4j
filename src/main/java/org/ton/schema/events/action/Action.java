@@ -1,84 +1,84 @@
 package org.ton.schema.events.action;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Action {
-    private String type;
-    private String status;
 
-    @JsonProperty("TonTransfer")
-    private TonTransferAction tonTransfer;
+  private String type;
+  private String status;
 
-    @JsonProperty("ContractDeploy")
-    private ContractDeployAction contractDeploy;
+  @JsonProperty("TonTransfer")
+  private TonTransferAction tonTransfer;
 
-    @JsonProperty("JettonTransfer")
-    private JettonTransferAction jettonTransfer;
+  @JsonProperty("ContractDeploy")
+  private ContractDeployAction contractDeploy;
 
-    @JsonProperty("JettonBurn")
-    private JettonBurnAction jettonBurn;
+  @JsonProperty("JettonTransfer")
+  private JettonTransferAction jettonTransfer;
 
-    @JsonProperty("JettonMint")
-    private JettonMintAction jettonMint;
+  @JsonProperty("JettonBurn")
+  private JettonBurnAction jettonBurn;
 
-    @JsonProperty("NftItemTransfer")
-    private NftItemTransferAction nftItemTransfer;
+  @JsonProperty("JettonMint")
+  private JettonMintAction jettonMint;
 
-    @JsonProperty("Subscribe")
-    private SubscriptionAction subscribe;
+  @JsonProperty("NftItemTransfer")
+  private NftItemTransferAction nftItemTransfer;
 
-    @JsonProperty("UnSubscribe")
-    private UnSubscriptionAction unSubscribe;
+  @JsonProperty("Subscribe")
+  private SubscriptionAction subscribe;
 
-    @JsonProperty("AuctionBid")
-    private AuctionBidAction auctionBid;
+  @JsonProperty("UnSubscribe")
+  private UnSubscriptionAction unSubscribe;
 
-    @JsonProperty("NftPurchase")
-    private NftPurchaseAction nftPurchase;
+  @JsonProperty("AuctionBid")
+  private AuctionBidAction auctionBid;
 
-    @JsonProperty("DepositStake")
-    private DepositStakeAction depositStake;
+  @JsonProperty("NftPurchase")
+  private NftPurchaseAction nftPurchase;
 
-    @JsonProperty("WithdrawStake")
-    private WithdrawStakeAction withdrawStake;
+  @JsonProperty("DepositStake")
+  private DepositStakeAction depositStake;
 
-    @JsonProperty("WithdrawStakeRequest")
-    private WithdrawStakeRequestAction withdrawStakeRequest;
+  @JsonProperty("WithdrawStake")
+  private WithdrawStakeAction withdrawStake;
 
-    @JsonProperty("ElectionsDepositStake")
-    private ElectionsDepositStakeAction electionsDepositStake;
+  @JsonProperty("WithdrawStakeRequest")
+  private WithdrawStakeRequestAction withdrawStakeRequest;
 
-    @JsonProperty("ElectionsRecoverStake")
-    private ElectionsRecoverStakeAction electionsRecoverStake;
+  @JsonProperty("ElectionsDepositStake")
+  private ElectionsDepositStakeAction electionsDepositStake;
 
-    @JsonProperty("JettonSwap")
-    private JettonSwapAction jettonSwap;
+  @JsonProperty("ElectionsRecoverStake")
+  private ElectionsRecoverStakeAction electionsRecoverStake;
 
-    @JsonProperty("SmartContractExec")
-    private SmartContractAction smartContractExec;
+  @JsonProperty("JettonSwap")
+  private JettonSwapAction jettonSwap;
 
-    @JsonProperty("DomainRenew")
-    private DomainRenewAction domainRenew;
+  @JsonProperty("SmartContractExec")
+  private SmartContractAction smartContractExec;
 
-    @JsonProperty("InscriptionTransfer")
-    private InscriptionTransferAction inscriptionTransfer;
+  @JsonProperty("DomainRenew")
+  private DomainRenewAction domainRenew;
 
-    @JsonProperty("InscriptionMint")
-    private InscriptionMintAction inscriptionMint;
+  @JsonProperty("InscriptionTransfer")
+  private InscriptionTransferAction inscriptionTransfer;
 
-    @JsonProperty("base_transactions")
-    private List<String> baseTransactions;
+  @JsonProperty("InscriptionMint")
+  private InscriptionMintAction inscriptionMint;
 
-    @JsonProperty("simple_preview")
-    private ActionSimplePreview simplePreview;
+  @JsonProperty("base_transactions")
+  private List<String> baseTransactions;
+
+  @JsonProperty("simple_preview")
+  private ActionSimplePreview simplePreview;
 }

@@ -11,10 +11,11 @@ import org.ton.schema.accounts.AccountAddress;
 @NoArgsConstructor
 @AllArgsConstructor
 public class JettonInfo {
-    private Boolean mintable;
-    private String totalSupply;
-    private AccountAddress admin;
-    private JettonMetadata metadata;
-    private JettonVerificationType verification;
-    private Long holdersCount;
+
+  private Boolean mintable;
+  private String totalSupply;
+  private AccountAddress admin;
+  private JettonMetadata metadata;
+  private JettonVerificationType verification;
+  private Long holdersCount;
 }

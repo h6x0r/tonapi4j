@@ -5,18 +5,19 @@ import org.ton.util.Utils;
 
 @Value
 public class Address {
-    String value;
 
-    @Override
-    public String toString() {
-        return value;
-    }
+  String value;
 
-    public String toRaw() {
-        return value;
-    }
+  @Override
+  public String toString() {
+    return value;
+  }
 
-    public String toUserFriendly(boolean isBounceable) {
-        return Utils.rawToUserFriendly(value, isBounceable);
-    }
+  public String toRaw() {
+    return value;
+  }
+
+  public String toUserFriendly(boolean isBounceable) {
+    return Utils.rawToUserFriendly(value, isBounceable);
+  }
 }

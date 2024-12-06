@@ -1,5 +1,6 @@
 package org.ton.schema.events.action;
 
+import java.math.BigInteger;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,9 +12,10 @@ import org.ton.schema.accounts.AccountAddress;
 @NoArgsConstructor
 @AllArgsConstructor
 public class InscriptionMintAction {
-    private AccountAddress recipient;
-    private String amount;
-    private String type;
-    private String ticker;
-    private Integer decimals;
+
+  private AccountAddress recipient;
+  private BigInteger amount;
+  private String type;
+  private String ticker;
+  private Integer decimals;
 }

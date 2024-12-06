@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ApyHistory {
-    private Double apy;
-    private Long time;
+
+  private Double apy;
+  private Long time;
 }

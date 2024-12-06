@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Refund {
-    private String type;
-    private String origin;
+
+  private String type;
+  private String origin;
 }

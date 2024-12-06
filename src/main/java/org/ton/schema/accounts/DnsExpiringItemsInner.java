@@ -11,7 +11,8 @@ import org.ton.schema.nft.NftItem;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DnsExpiringItemsInner {
-    private Long expiringAt;
-    private String name;
-    private NftItem dnsItem;
+
+  private Long expiringAt;
+  private String name;
+  private NftItem dnsItem;
 }

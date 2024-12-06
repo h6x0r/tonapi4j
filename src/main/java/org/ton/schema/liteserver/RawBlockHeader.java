@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RawBlockHeader {
-    private BlockRaw id;
-    private Integer mode;
-    private String headerProof;
+
+  private BlockRaw id;
+  private Integer mode;
+  private String headerProof;
 }

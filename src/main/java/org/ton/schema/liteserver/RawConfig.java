@@ -10,8 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RawConfig {
-    private Integer mode;
-    private BlockRaw id;
-    private String stateProof;
-    private String configProof;
+
+  private Integer mode;
+  private BlockRaw id;
+  private String stateProof;
+  private String configProof;
 }

@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OtherValue {
-    private Long id;
-    private String value;
+
+  private Long id;
+  private String value;
 }

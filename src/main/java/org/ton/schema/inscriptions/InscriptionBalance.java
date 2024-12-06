@@ -10,8 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class InscriptionBalance {
-    private String type;
-    private String ticker;
-    private String balance;
-    private Integer decimals;
+
+  private String type;
+  private String ticker;
+  private String balance;
+  private Integer decimals;
 }

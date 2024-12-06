@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ValidatorSetNode {
-    private Long weight;
-    private String publicKey;
-    private String adnlAddr;
+
+  private Long weight;
+  private String publicKey;
+  private String adnlAddr;
 }

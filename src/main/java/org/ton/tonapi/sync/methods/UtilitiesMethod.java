@@ -8,32 +8,32 @@ import org.ton.tonapi.sync.TonapiClientBase;
 
 public class UtilitiesMethod extends TonapiClientBase {
 
-    public UtilitiesMethod(TonapiClientBase client) {
-        super(client);
-    }
+  public UtilitiesMethod(TonapiClientBase client) {
+    super(client);
+  }
 
-    /**
-     * Parse address and display in all formats.
-     *
-     * @param accountId Account ID
-     * @return AddressForm object containing address formats
-     * @throws TONAPIError if the request fails
-     */
-    public AddressForm parseAddress(String accountId) throws TONAPIError {
-        String method = String.format("v2/address/%s/parse", accountId);
-        return this.get(method, null, null, new TypeReference<>() {
-        });
-    }
+  /**
+   * Parse address and display in all formats.
+   *
+   * @param accountId Account ID
+   * @return AddressForm object containing address formats
+   * @throws TONAPIError if the request fails
+   */
+  public AddressForm parseAddress(String accountId) throws TONAPIError {
+    String method = String.format("v2/address/%s/parse", accountId);
+    return this.get(method, null, null, new TypeReference<AddressForm>() {
+    });
+  }
 
-    /**
-     * Get service status.
-     *
-     * @return ServiceStatus object containing service status information
-     * @throws TONAPIError if the request fails
-     */
-    public ServiceStatus status() throws TONAPIError {
-        String method = "v2/status";
-        return this.get(method, null, null, new TypeReference<>() {
-        });
-    }
+  /**
+   * Get service status.
+   *
+   * @return ServiceStatus object containing service status information
+   * @throws TONAPIError if the request fails
+   */
+  public ServiceStatus status() throws TONAPIError {
+    String method = "v2/status";
+    return this.get(method, null, null, new TypeReference<ServiceStatus>() {
+    });
+  }
 }

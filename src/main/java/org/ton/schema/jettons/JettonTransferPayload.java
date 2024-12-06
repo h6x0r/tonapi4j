@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class JettonTransferPayload {
-    private String customPayload;
-    private String stateInit;
+
+  private String customPayload;
+  private String stateInit;
 }

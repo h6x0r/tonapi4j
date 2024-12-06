@@ -10,8 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RawBlockState {
-    private BlockRaw id;
-    private String rootHash;
-    private String fileHash;
-    private String data;
+
+  private BlockRaw id;
+  private String rootHash;
+  private String fileHash;
+  private String data;
 }

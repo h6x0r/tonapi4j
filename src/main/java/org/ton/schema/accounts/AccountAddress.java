@@ -11,9 +11,10 @@ import org.ton.schema.Address;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AccountAddress {
-    private Address address;
-    private String name;
-    private String icon;
-    private Boolean isScam;
-    private Boolean isWallet;
+
+  private Address address;
+  private String name;
+  private String icon;
+  private Boolean isScam;
+  private Boolean isWallet;
 }

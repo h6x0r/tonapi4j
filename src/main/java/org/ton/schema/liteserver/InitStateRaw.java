@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class InitStateRaw {
-    private Long workchain;
-    private String rootHash;
-    private String fileHash;
+
+  private Long workchain;
+  private String rootHash;
+  private String fileHash;
 }
